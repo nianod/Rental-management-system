@@ -1,19 +1,60 @@
+import Link from 'next/link';
+import Image from 'next/image';
 
 const Navbar = () => {
-
     const navContents = {
-        logo: "logoipsum-292.svg",
+        logo: "/logoipsum-292.svg",  
         title: "Titan Rental"
-    }
+    };
 
-  return (
-    <div className="p-2 "> 
-        <div className="flex items-center">
-            <img src={navContents.logo} alt="logo" />
-            <h1 className="font-bold text-2xl">{navContents.title}</h1>
-        </div>
-    </div>
-  )
-}
+    return (
+        <nav className="sticky top-0 z-50 p-3 border-b bg-white shadow-sm">
+            <div className=" mx-auto flex justify-between ">
+                <div className="flex items-center space-x-3">
+                    <Link href="/" className="flex items-center space-x-3">
+                         <div className="relative w-10 h-10">
+                            <Image 
+                                src={navContents.logo} 
+                                alt="Titan Rental Logo"
+                                fill
+                                className="object-contain"
+                                priority
+                            />
+                        </div>
+                        <h1 className="font-bold text-2xl text-gray-800">{navContents.title}</h1>
+                    </Link>
+                </div>
+                
+                <div className="flex items-center space-x-4">
 
-export default Navbar
+                     <div className="hidden md:flex space-x-6">
+                        <Link 
+                            href="/dashboard" 
+                            className="text-gray-600 hover:text-blue-600 transition-colors"
+                        >
+                            Dashboard
+                        </Link>
+                        <Link 
+                            href="/updates" 
+                            className="text-gray-600 hover:text-blue-600 transition-colors"
+                        >
+                            Updates
+                        </Link>
+                        <Link 
+                            href="/arreas" 
+                            className="text-gray-600 hover:text-blue-600 transition-colors"
+                        >
+                            Arreas
+                        </Link>
+                    </div>
+                    
+                    <button className="cursor-pointer bg-gradient-to-br from-blue-500 to-blue-800 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-900 transition-all duration-200 font-medium shadow-md hover:shadow-lg">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </nav>
+    );
+};
+
+export default Navbar;
