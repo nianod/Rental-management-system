@@ -1,10 +1,17 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-
-export default function Home() {
+// app/page.tsx
+import HeroSection from './components/ui/HeroSection';
+import AvailableRooms from './components/ui/AvailableRooms';
+import FeaturesSection from './components/ui/FeaturesSection';
+import TestimonialsSection from './components/ui/TestimonialsSection';
+import CTASection from './components/ui/CTAsection';
+export default function HomePage() {
   return (
-  <div className="bg-[#040000]">
-    <h4 className="text-green-500">Am arnold</h4>
-  </div>
+    <main className="min-h-screen bg-[#060219]">
+      <HeroSection />
+      <AvailableRooms />
+      <FeaturesSection />
+      <TestimonialsSection />
+      <CTASection />
+    </main>
   );
 }
