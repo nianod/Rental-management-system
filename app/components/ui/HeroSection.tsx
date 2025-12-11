@@ -2,30 +2,30 @@ import { ArrowRight, CheckCircle, Home, Shield } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-[#060219] via-blue-950 to-purple-900 overflow-hidden">
+    <div className="relative min-h-[90vh] flex items-center  overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%239C92AC%22%20fill-opacity%3D%220.4%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')]"></div>
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-black/50"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-9">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div>
-              <div className="inline-flex items-center gap-2 bg-blue-900/30 backdrop-blur-sm border border-blue-700/30 rounded-full px-4 py-2 mb-6">
+              <div className="inline-flex items-center gap-2 bg-black/50 backdrop-blur-sm border border-blue-700/30 rounded-full px-4 py-2 mb-6">
                 <Shield className="w-4 h-4 text-blue-300" />
                 <span className="text-sm text-blue-200">Secure Digital Platform</span>
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                <span className="text-white">Modern Living,</span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 block">Simplified Management</span>
+                <span className="text-white">Modern Living,</span> <br />
+                <span className="text-transparent bg-clip-text bg-blue-600">Simplified Management</span>
               </h1>
               
               <p className="text-xl text-gray-300 mb-8 max-w-2xl">
                 Titan Rental connects landlords and tenants through a secure digital platform. 
-                Streamline rent payments, maintenance requests, and communication—all in one place.
+                Streamline rent payments, maintenance requests, and communication, all in one place.
               </p>
 
               {/* Key Features */}
@@ -63,9 +63,9 @@ const HeroSection = () => {
             </div>
 
             {/* Right Stats Card */}
-            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8">
+            <div className="bg-black/50 backdrop-blur-lg border border-white/10 rounded-2xl p-8">
               <div className="text-center mb-8">
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Home className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-white">Current Availability</h3>
@@ -74,9 +74,9 @@ const HeroSection = () => {
 
               <div className="space-y-6">
                 {[
-                  { label: 'Total Apartments', value: '48', color: 'text-blue-400' },
-                  { label: 'Available Now', value: '12', color: 'text-green-400' },
-                  { label: 'Avg. Rent', value: '$1,450', color: 'text-purple-400' },
+                  { label: 'Total Rooms', value: '116', color: 'text-blue-400' },
+                  { label: 'Currently Vacant', value: '12', color: 'text-green-400' },
+                  { label: 'Avg. Rent per month', value: 'ksh 5500', color: 'text-purple-400' },
                   { label: 'New Applications', value: '8', color: 'text-yellow-400' },
                 ].map((stat, index) => (
                   <div key={index} className="flex justify-between items-center pb-4 border-b border-white/10">
