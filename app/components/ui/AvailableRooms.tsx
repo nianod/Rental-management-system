@@ -88,13 +88,13 @@ const AvailableRooms = () => {
     : availableRooms;
 
   return (
-    <section id="rooms" className="py-20 bg-gradient-to-b from-gray-900 to-[#060219]">
+    <section id="rooms" className="py-20 bg-[#060219]">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-white">Available </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+            <span className="text-gray-300">Available </span>
+            <span className="text-transparent bg-clip-text bg-blue-800">
               Apartments
             </span>
           </h2>
@@ -109,7 +109,7 @@ const AvailableRooms = () => {
           <div className="inline-flex bg-gray-800/50 backdrop-blur-sm rounded-lg p-1">
             <button
               onClick={() => setShowOnlyAvailable(true)}
-              className={`px-6 py-2 rounded-md transition-all duration-300 ${
+              className={`px-6 py-2 cursor-pointer rounded-md transition-all duration-300 ${
                 showOnlyAvailable 
                   ? 'bg-blue-600 text-white' 
                   : 'text-gray-400 hover:text-white'
@@ -119,7 +119,7 @@ const AvailableRooms = () => {
             </button>
             <button
               onClick={() => setShowOnlyAvailable(false)}
-              className={`px-6 py-2 rounded-md transition-all duration-300 ${
+              className={`px-6 py-2 cursor-pointer rounded-md transition-all duration-300 ${
                 !showOnlyAvailable 
                   ? 'bg-blue-600 text-white' 
                   : 'text-gray-400 hover:text-white'
