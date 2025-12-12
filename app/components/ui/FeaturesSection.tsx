@@ -18,7 +18,7 @@ const FeaturesSection = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="text-white">Why Choose </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-blue-700">
               Titan Rental?
             </span>
           </h2>
@@ -54,7 +54,7 @@ const FeaturesSection = () => {
         </div>
 
         {/* Stats Bar */}
-        <div className="mt-20 bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-700/30 rounded-2xl p-8">
+        <div className="mt-20 bg-gradient-to-r from-[#07072e] to-[black] border border-blue-700/30 rounded-2xl p-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-4xl font-bold text-white mb-2">98%</div>

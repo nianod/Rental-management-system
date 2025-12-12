@@ -30,7 +30,7 @@ const TestimonialCard = ({
       <p className="text-gray-300 text-lg italic mb-8 leading-relaxed">"{content}"</p>
       
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
+        <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-900 rounded-full flex items-center justify-center">
           <span className="text-white font-bold text-xl">{name.charAt(0)}</span>
         </div>
         <div>
@@ -59,7 +59,7 @@ const TestimonialsSection = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="text-white">What Our </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-blue-700">
               Tenants Say
             </span>
           </h2>

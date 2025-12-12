@@ -1,13 +1,5 @@
 // lib/data.ts
-export interface Room {
-  id: number;
-  roomNumber: string;
-  title: string;
-  description: string;
-  price: number;
-  features: string[];
-  status: 'vacant' | 'occupied';
-}
+import type { Room } from "../types/data";
 
 export const availableRooms: Room[] = [
   {
@@ -83,19 +75,19 @@ export const features = [
 
 export const testimonials = [
   {
-    name: 'Sarah Johnson',
+    name: 'Arnold Katumo',
     role: 'Tenant for 2 years',
     content: 'The digital system made everything so easy! Paying rent and reporting issues takes minutes.',
     rating: 5
   },
   {
-    name: 'Michael Chen',
+    name: 'Hope Ken',
     role: 'New Tenant',
     content: 'Applying online was seamless. The landlord approved my application within 24 hours!',
     rating: 5
   },
   {
-    name: 'Emma Rodriguez',
+    name: 'Linus Torvalds',
     role: 'Tenant for 1 year',
     content: 'I love getting instant updates about building maintenance. No more surprise water outages!',
     rating: 4

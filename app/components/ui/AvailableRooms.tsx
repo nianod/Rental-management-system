@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { Check, Wifi, Car, Droplets, MapPin, Bed, Bath, Maximize } from 'lucide-react';
 import Link from 'next/link';
-import { Room, availableRooms } from '@/app/lib/data';
+import { availableRooms } from '@/app/lib/data';
 import Button from './Button';
+import type { Room } from '@/app/types/data';
 
 const RoomCard = ({ room }: { room: Room }) => {
   const getFeatureIcon = (feature: string) => {

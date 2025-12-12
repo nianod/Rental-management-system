@@ -4,7 +4,7 @@ import React from 'react'
 
 const bookings = () => {
   return (
-    <AvailableRooms />
+    <AvailableRooms variant="bookings" />
   )
 }
 

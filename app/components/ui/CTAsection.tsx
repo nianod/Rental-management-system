@@ -4,13 +4,13 @@ import Link from 'next/link';
 
 const CTASection = () => {
   return (
-    <section className="py-20 bg-gradient-to-br from-[#060219] via-blue-950 to-purple-900">
+    <section className="py-20 bg-gradient-to-br from-[#060219] via-blue-950/30 to-[black]">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 border border-gray-700 rounded-3xl p-12 text-center">
+          <div className="bg-gradient-to-br from-[black] to-[black] border border-gray-700 rounded-3xl p-12 text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="text-white">Ready to Find Your</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+              <span className="block text-transparent bg-clip-text bg-blue-700">
                 New Home?
               </span>
             </h2>
@@ -41,7 +41,7 @@ const CTASection = () => {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 border border-blue-700/30 rounded-2xl p-8">
+              <div className="bg-gradient-to-br from-[black] to-[black] border border-blue-700/30 rounded-2xl p-8">
                 <h4 className="text-xl font-bold text-white mb-6">Get In Touch</h4>
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
@@ -50,7 +50,7 @@ const CTASection = () => {
                     </div>
                     <div>
                       <div className="text-gray-400 text-sm">Call us</div>
-                      <div className="text-white font-semibold">(555) 123-4567</div>
+                      <div className="text-white font-semibold">+254798445363</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -59,7 +59,7 @@ const CTASection = () => {
                     </div>
                     <div>
                       <div className="text-gray-400 text-sm">Business Hours</div>
-                      <div className="text-white font-semibold">Mon-Fri: 9AM-6PM</div>
+                      <div className="text-white font-semibold">full time</div>
                     </div>
                   </div>
                 </div>
@@ -69,19 +69,18 @@ const CTASection = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
-                href="/apply"
+                href="/bookings"
                 className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-10 rounded-xl text-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25"
               >
-                Apply Now
+                 View Rooms
                 <ArrowRight className="w-5 h-5" />
               </Link>
               
               <Link 
-                href="#rooms"
+                href="/login"
                 className="inline-flex items-center justify-center gap-3 bg-transparent border-2 border-blue-500 hover:bg-blue-500/10 text-blue-300 hover:text-white font-semibold py-4 px-10 rounded-xl text-lg transition-all duration-300"
               >
-                View Rooms
-                <span className="text-xl">→</span>
+                <span className="text-xl">Login as Tenant</span>
               </Link>
             </div>
 
