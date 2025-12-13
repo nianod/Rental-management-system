@@ -23,9 +23,9 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: <Facebook className="w-5 h-5" />, href: '#', label: 'Facebook' },
-    { icon: <Twitter className="w-5 h-5" />, href: '#', label: 'Twitter' },
-    { icon: <Instagram className="w-5 h-5" />, href: '#', label: 'Instagram' },
-    { icon: <Linkedin className="w-5 h-5" />, href: '#', label: 'LinkedIn' },
+    { icon: <Twitter className="w-5 h-5" />, href: 'https://x.com/wotagwanyoh', label: 'Twitter' },
+    { icon: <Instagram className="w-5 h-5" />, href: 'https://www.instagram.com/ar_nold._/', label: 'Instagram' },
+    { icon: <Linkedin className="w-5 h-5" />, href: 'https://www.linkedin.com/in/arnold-wanza-b51654330/', label: 'LinkedIn' },
   ];
 
   return (
