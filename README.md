@@ -34,3 +34,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+PHASE 1: FINDING A ROOM
+Visitor → Views rooms online → Visits physically → Decides → Applies (online/in-person)
+
+PHASE 2: BECOMING A TENANT  
+Landlord approves → Tenant moves in physically → Gets room number → Gets account access
+
+PHASE 3: USING THE PLATFORM
+Tenant logs in → Uses digital features → Communicates with landlord → Pays rent digitally
