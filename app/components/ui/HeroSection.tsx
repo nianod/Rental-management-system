@@ -1,4 +1,5 @@
 import { ArrowRight, CheckCircle, Home, Shield } from 'lucide-react';
+import Link from 'next/link';
 
 const HeroSection = () => {
   return (
@@ -53,12 +54,12 @@ const HeroSection = () => {
                   <ArrowRight className="w-5 h-5" />
                 </a>
                 
-                <a 
-                  href="/login"
+                <Link
+                  href="/auth/login"
                   className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-blue-500 hover:bg-blue-500/10 text-blue-300 hover:text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300"
                 >
                   Login
-                </a>
+                </Link>
               </div>
             </div>
 
