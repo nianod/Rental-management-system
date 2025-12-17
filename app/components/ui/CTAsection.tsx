@@ -77,7 +77,7 @@ const CTASection = () => {
               </Link>
               
               <Link 
-                href="/login"
+                href="/auth/login"
                 className="inline-flex items-center justify-center gap-3 bg-transparent border-2 border-blue-500 hover:bg-blue-500/10 text-blue-300 hover:text-white font-semibold py-4 px-10 rounded-xl text-lg transition-all duration-300"
               >
                 <span className="text-xl">Login as Tenant</span>

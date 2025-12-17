@@ -4,30 +4,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { 
-  Lock, 
-  User, 
-  Eye, 
-  EyeOff, 
-  Home, 
-  Shield, 
-  ArrowRight,
-  WalletCards,
-  FileText,
-  MessageCircle,
-  File,
-  Newspaper
- } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, Home, Shield, ArrowRight, WalletCards, FileText, MessageCircle, File,Newspaper } from 'lucide-react';
 
 const LoginPage = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [loginType, setLoginType] = useState<'tenant' | 'admin'>('tenant');
-  const [formData, setFormData] = useState({
-    roomNumber: '',
-    password: '',
-    rememberMe: false,
-  });
+  const [formData, setFormData] = useState({ roomNumber: '', password: '', rememberMe: false, });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -36,17 +19,30 @@ const LoginPage = () => {
     setLoading(true);
     setError('');
 
-    // Simulate API call
-    setTimeout(() => {
-      // Mock validation
-      if (formData.roomNumber && formData.password) {
-        // Successful login
-        router.push('/dashboard');
+    if(loginType === 'admin') {
+      const adminID = "Admin123"
+      const adminPassword = "Admin123"
+
+      if(formData.roomNumber === adminID && formData.password === adminPassword) {
+        router.push('/admin/admin-dashboard');
       } else {
-        setError('Please fill in all required fields');
+        setError("We didn't found any admin with those credentials");
+        setLoading(false)
       }
-      setLoading(false);
-    }, 1000);
+    }
+
+    if(loginType === 'tenant') {
+      const tenantID = "Tenant123"
+      const tenantPassword = "Tenant123"
+
+      if(formData.roomNumber === tenantID && formData.password === tenantPassword) {
+        router.push('/tenant/tenant-dashboard');
+      } else {
+        setError('Invalid credentials');
+        setLoading(false)
+      }
+    }
+
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,25 +218,6 @@ const LoginPage = () => {
                     </div>
                   </div>
 
-                  {/* Additional Fields for Admin */}
-                  {loginType === 'admin' && (
-                    <div>
-                      <label className="block text-gray-300 text-sm font-medium mb-2">
-                        Admin Code (Optional)
-                      </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <Shield className="w-5 h-5 text-gray-500" />
-                        </div>
-                        <input
-                          type="text"
-                          placeholder="2FA code if enabled"
-                          className="w-full bg-gray-900/50 border border-gray-700 rounded-xl py-4 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition-all"
-                        />
-                      </div>
-                    </div>
-                  )}
-
                    <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <input
@@ -273,7 +250,7 @@ const LoginPage = () => {
                    <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl text-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 flex items-center justify-center gap-3 ${
+                    className={`w-full cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl text-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 flex items-center justify-center gap-3 ${
                       loading ? 'opacity-70 cursor-not-allowed' : ''
                     }`}
                   >

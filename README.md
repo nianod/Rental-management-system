@@ -43,4 +43,6 @@ PHASE 2: BECOMING A TENANT
 Landlord approves → Tenant moves in physically → Gets room number → Gets account access
 
 PHASE 3: USING THE PLATFORM
-Tenant logs in → Uses digital features → Communicates with landlord → Pays rent digitally
+Tenant logs in → Uses digital features → Communicates with landlord → Pays rent 
+
+## Authentication in this system is about access control, not user discovery.
