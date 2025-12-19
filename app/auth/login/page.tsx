@@ -1,10 +1,11 @@
 // app/login/page.tsx
 'use client';
-
+import Navbar from '@/app/components/Navbar';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Lock, User, Eye, EyeOff, Home, Shield, ArrowRight, WalletCards, FileText, MessageCircle, File,Newspaper } from 'lucide-react';
+
 
 const LoginPage = () => {
   const router = useRouter();
@@ -12,6 +13,7 @@ const LoginPage = () => {
   const [loginType, setLoginType] = useState<'tenant' | 'admin'>('tenant');
   const [formData, setFormData] = useState({ roomNumber: '', password: '', rememberMe: false, });
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,7 +26,9 @@ const LoginPage = () => {
       const adminPassword = "Admin123"
 
       if(formData.roomNumber === adminID && formData.password === adminPassword) {
+        setIsLoggedIn(true)
         router.push('/admin/admin-dashboard');
+        
       } else {
         setError("We didn't found any admin with those credentials");
         setLoading(false)
@@ -36,6 +40,7 @@ const LoginPage = () => {
       const tenantPassword = "Tenant123"
 
       if(formData.roomNumber === tenantID && formData.password === tenantPassword) {
+        setIsLoggedIn(true)
         router.push('/tenant/tenant-dashboard');
       } else {
         setError('Invalid credentials');
@@ -55,6 +60,7 @@ const LoginPage = () => {
 
   return (
     <>
+    <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
     <div className="min-h-screen bg-[#060219]">
       <div className="container mx-auto px-4 py-12">
          <div className="mb-8">
