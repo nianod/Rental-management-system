@@ -188,7 +188,7 @@ const LoginPage = () => {
                   {/* Password Input */}
                   <div>
                     <label className="block text-gray-300 text-sm font-medium mb-2">
-                      Password
+                      {loginType === 'tenant' ? 'Password' : 'Passcode'}
                       <span className="text-red-400 ml-1">*</span>
                     </label>
                     <div className="relative">
