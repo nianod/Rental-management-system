@@ -16,39 +16,45 @@ const LoginPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+  setError('');
 
-    if(loginType === 'admin') {
-      const adminID = "Admin123"
-      const adminPassword = "Admin123"
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        identifier: formData.roomNumber, // roomNumber or adminId
+        password: formData.password,
+        role: loginType,
+      }),
+    });
 
-      if(formData.roomNumber === adminID && formData.password === adminPassword) {
-        setIsLoggedIn(true)
-        router.push('/admin/admin-dashboard');
-        
-      } else {
-        setError("We didn't found any admin with those credentials");
-        setLoading(false)
-      }
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.error || 'Login failed');
+      setLoading(false);
+      return;
     }
 
-    if(loginType === 'tenant') {
-      const tenantID = "Tenant123"
-      const tenantPassword = "Tenant123"
+    // Save token in localStorage (or use httpOnly cookie via server)
+    localStorage.setItem('token', data.token);
 
-      if(formData.roomNumber === tenantID && formData.password === tenantPassword) {
-        setIsLoggedIn(true)
-        router.push('/tenant/tenant-dashboard');
-      } else {
-        setError('Invalid credentials');
-        setLoading(false)
-      }
-    }
+    setIsLoggedIn(true);
 
-  };
+    // Redirect based on role
+    if (loginType === 'admin') router.push('/admin/admin-dashboard');
+    else router.push('/tenant/tenant-dashboard');
+
+  } catch (err) {
+    setError('Something went wrong');
+    setLoading(false);
+  }
+};
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
