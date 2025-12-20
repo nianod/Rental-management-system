@@ -34,10 +34,16 @@ export async function POST(req: NextRequest) {
 
     const token = jwt.sign({ id: user.id }, secret, { expiresIn: '7d' });
     return NextResponse.json({ token });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('LOGIN API ERROR:', err);
+    if (err instanceof Error) {
+      return NextResponse.json(
+        { error: err.message },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { error: err?.message || 'Something went wrong' },
+      { error: 'Something went wrong' },
       { status: 500 }
     );
   }
