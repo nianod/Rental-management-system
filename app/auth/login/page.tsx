@@ -49,8 +49,8 @@ const LoginPage = () => {
     if (loginType === 'admin') router.push('/admin/admin-dashboard');
     else router.push('/tenant/tenant-dashboard');
 
-  } catch (err) {
-    setError('Something went wrong');
+  } catch (err: any) {
+    setError(err.message);
     setLoading(false);
   }
 };

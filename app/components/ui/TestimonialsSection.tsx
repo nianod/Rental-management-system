@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import { testimonials } from '@/app/lib/data';
+
 const TestimonialCard = ({ 
   name, 
   role, 
@@ -27,7 +28,7 @@ const TestimonialCard = ({
       </div>
       
       <Quote className="w-8 h-8 text-blue-400 mb-6" />
-      <p className="text-gray-300 text-lg italic mb-8 leading-relaxed">"{content}"</p>
+      <p className="text-gray-300 text-lg italic mb-8 leading-relaxed">{content}</p>
       
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-900 rounded-full flex items-center justify-center">

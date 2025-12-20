@@ -11,6 +11,7 @@ const iconMap: Record<string, React.ReactNode> = {
   '🔒': <Shield className="w-6 h-6" />,
 };
 
+
 const FeaturesSection = () => {
   return (
     <section className="py-20 bg-gradient-to-b from-[#060219] to-gray-900">
@@ -35,7 +36,10 @@ const FeaturesSection = () => {
               className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700 rounded-2xl p-8 hover:border-blue-500 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
             >
               <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <span className="text-2xl">{feature.icon}</span>
+               {iconMap[feature.icon] && (
+                  <span className="text-2xl">{feature.icon}</span>
+               )}
+                
               </div>
               
               <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
