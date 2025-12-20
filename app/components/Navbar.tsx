@@ -10,7 +10,7 @@ const Navbar = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(Boolean(token));
-  }, []);
+  }, [setIsLoggedIn]);
 
   const navContents = {
     logo: '/logoipsum-292.svg',
