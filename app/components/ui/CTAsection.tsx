@@ -1,5 +1,5 @@
 // app/components/landing/CTASection.tsx
-import { ArrowRight, CheckCircle, Calendar, Phone } from 'lucide-react';
+import { ArrowRight, Calendar, Phone } from 'lucide-react';
 import Link from 'next/link';
 
 const CTASection = () => {

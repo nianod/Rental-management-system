@@ -1,7 +1,7 @@
 'use client' //Client component
 
 import { useState } from 'react';
-import { Check, Wifi, Car, Droplets, MapPin, Bed, Bath, Maximize } from 'lucide-react';
+import { Check, Wifi, Car, Droplets, Bed, Bath } from 'lucide-react';
 import Link from 'next/link';
 import { availableRooms } from '@/app/lib/data';
 import Button from './Button';

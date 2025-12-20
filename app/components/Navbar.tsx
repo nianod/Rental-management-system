@@ -1,8 +1,7 @@
 'use client'
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-
+ 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }: { isLoggedIn: boolean, setIsLoggedIn: (v: boolean) => void }) => {
   const navContents = {
     logo: "/logoipsum-292.svg",
