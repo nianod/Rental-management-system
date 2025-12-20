@@ -129,7 +129,7 @@ const AvailableRooms = ({ variant = 'home'} : {variant?: 'home' | 'bookings'}) =
 
         {/* Rooms Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {filteredRooms.map((room: any) => (
+          {filteredRooms.map((room: Room) => (
             <RoomCard key={room.id} room={room} />
           ))}
         </div>
