@@ -1,64 +1,82 @@
-// app/login/page.tsx
+// app/authlogin/page.tsx
 'use client';
-import Navbar from '@/app/components/Navbar';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Lock, User, Eye, EyeOff, Home, Shield, ArrowRight, WalletCards, FileText, MessageCircle, File,Newspaper } from 'lucide-react';
-
+import { Lock, User, Eye, EyeOff, Home, Shield, ArrowRight, WalletCards, FileText, MessageCircle, File, Newspaper } from 'lucide-react';
 
 const LoginPage = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [loginType, setLoginType] = useState<'tenant' | 'admin'>('tenant');
-  const [formData, setFormData] = useState({ roomNumber: '', password: '', rememberMe: false, });
+  const [formData, setFormData] = useState({ 
+    roomNumber: '', 
+    password: '', 
+    rememberMe: false 
+  });
   const [loading, setLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState('');
+  const [mounted, setMounted] = useState(false);
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
-  setError('');
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  try {
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        identifier: formData.roomNumber, // roomNumber or adminId
-        password: formData.password,
-        role: loginType,
-      }),
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
-    const data = await res.json();
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          identifier: formData.roomNumber,
+          password: formData.password,
+          role: loginType,
+        }),
+      });
 
-    if (!res.ok) {
-      setError(data.error || 'Login failed');
+      // Check if response is JSON
+      const contentType = res.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new Error('Server returned an error. Please check server logs.');
+      }
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Login failed');
+        setLoading(false);
+        return;
+      }
+
+      // Save token only on client side
+      if (mounted && typeof window !== 'undefined') {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userRole', data.user.role);
+        localStorage.setItem('userId', data.user.id);
+      }
+
+      // Redirect based on role
+      if (loginType === 'admin') {
+        router.push('/admin/admin-dashboard');
+      } else {
+        router.push('/tenant/tenant-dashboard');
+      }
+
+    } catch (err: unknown) {
+      console.error('Login error:', err);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
       setLoading(false);
-      return;
     }
-
-    // Save token in localStorage (or use httpOnly cookie via server)
-    localStorage.setItem('token', data.token);
-
-    setIsLoggedIn(true);
-
-    // Redirect based on role
-    if (loginType === 'admin') router.push('/admin/admin-dashboard');
-    else router.push('/tenant/tenant-dashboard');
-
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      setError(err.message);
-    } else {
-      setError('Something went wrong');
-    }
-    setLoading(false);
-  }
-};
-
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -69,11 +87,9 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-    <Navbar  />
     <div className="min-h-screen bg-[#060219]">
       <div className="container mx-auto px-4 py-12">
-         <div className="mb-8">
+        <div className="mb-8">
           <Link 
             href="/" 
             className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
@@ -85,9 +101,9 @@ const LoginPage = () => {
 
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column */}
             <div>
               <div className="mb-8">
-                
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
                   <span className="text-white">Welcome Back to</span>
                   <span className="block text-transparent bg-clip-text bg-blue-700">
@@ -152,8 +168,6 @@ const LoginPage = () => {
                   </div>
                 ))}
               </div>
-
-          
             </div>
 
             {/* Right Column - Login Form */}
@@ -175,7 +189,7 @@ const LoginPage = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Room Number Input */}
+                  {/* Room Number/Admin ID Input */}
                   <div>
                     <label className="block text-gray-300 text-sm font-medium mb-2">
                       {loginType === 'tenant' ? 'Room Number' : 'Admin ID'}
@@ -204,7 +218,7 @@ const LoginPage = () => {
                   {/* Password Input */}
                   <div>
                     <label className="block text-gray-300 text-sm font-medium mb-2">
-                      {loginType === 'tenant' ? 'Password' : 'Passcode'}
+                      Password
                       <span className="text-red-400 ml-1">*</span>
                     </label>
                     <div className="relative">
@@ -234,7 +248,7 @@ const LoginPage = () => {
                     </div>
                   </div>
 
-                   <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <input
                         type="checkbox"
@@ -263,7 +277,7 @@ const LoginPage = () => {
                     </div>
                   )}
 
-                   <button
+                  <button
                     type="submit"
                     disabled={loading}
                     className={`w-full cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl text-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 flex items-center justify-center gap-3 ${
@@ -289,7 +303,6 @@ const LoginPage = () => {
         </div>
       </div>
     </div>
-    </>
   );
 };
 
