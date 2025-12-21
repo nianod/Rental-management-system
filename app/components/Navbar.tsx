@@ -1,14 +1,21 @@
 'use client';
-import {useAuth} from '@/app/context/AuthContext';
-import { useEffect } from 'react';
+
+import { useAuth } from '@/app/context/AuthContext';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 const Navbar = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    setIsClient(true); // signals that we're now on the client
+
+    const token = typeof window !== 'undefined'
+      ? localStorage.getItem('token')
+      : null;
+
     setIsLoggedIn(Boolean(token));
   }, [setIsLoggedIn]);
 
@@ -35,7 +42,15 @@ const Navbar = () => {
           </h1>
         </Link>
 
-        {isLoggedIn ? (
+        {/* Before hydration finishes, render a stable, SSR-safe view */}
+        {!isClient ? (
+          <Link
+            href="/auth/login"
+            className="bg-gradient-to-br from-blue-500 to-blue-800 text-white px-6 py-2 rounded-lg"
+          >
+            Login
+          </Link>
+        ) : isLoggedIn ? (
           <div className="flex items-center space-x-4">
             <div className="hidden md:flex space-x-6">
               <Link href="/dashboard" className="text-gray-300 hover:text-blue-600">
