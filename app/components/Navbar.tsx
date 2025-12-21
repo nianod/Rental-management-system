@@ -7,12 +7,10 @@ import Image from 'next/image';
 
 const Navbar = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
-  const [isClient, setIsClient] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const [userRole, setUserRole] = useState<'tenant' | 'admin' | null>(null);
 
   useEffect(() => {
-    setIsClient(true);
-
     if (typeof window === 'undefined') return;
 
     const token = localStorage.getItem('token');
@@ -46,7 +44,7 @@ const Navbar = () => {
         </Link>
 
         {/* Before hydration finishes, keep SSR-safe */}
-        {!isClient ? (
+        {!hydrated ? (
           <Link
             href="/auth/login"
             className="bg-gradient-to-br from-blue-500 to-blue-800 text-white px-6 py-2 rounded-lg"
