@@ -1,46 +1,136 @@
-//admin/admin-dashboard
-import React from 'react';
-import Link from 'next/link';
-import { ChurchIcon, UserIcon, FileTextIcon, CalendarIcon, CreditCardIcon, SettingsIcon, MessageSquareIcon, HomeIcon } from 'lucide-react';
+// app/admin/layout.tsx
+"use client";
+import getGreeting from "@/app/utils/greeting";
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X, Bell, Search, LogOut } from "lucide-react";
 
 const menuItems = [
-  { href: '/admin', label: 'Dashboard', icon: HomeIcon },
-  { href: '/admin/tenants', label: 'Tenants', icon: UserIcon },
-  { href: '/admin/applications', label: 'Applications', icon: FileTextIcon },
-  { href: '/admin/payments', label: 'Rent Payments', icon: CreditCardIcon },
-  { href: '/admin/messages', label: 'Messages', icon: MessageSquareIcon },
-  { href: '/admin/updates', label: 'Announcements', icon: CalendarIcon },
-  { href: '/admin/settings', label: 'Settings', icon: SettingsIcon },
-  { href: '/admin/rooms', label: 'Rooms', icon: ChurchIcon },
+  { href: "/admin", label: "Dashboard" },
+  { href: "/admin/tenants", label: "Tenants" },
+  { href: "/admin/applications", label: "Applications" },
+  { href: "/admin/payments", label: "Rent Payments" },
+  { href: "/admin/messages", label: "Messages" },
+  { href: "/admin/updates", label: "Announcements" },
+  { href: "/admin/rooms", label: "Rooms" },
+  { href: "/admin/settings", label: "Settings" },
 ];
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const pathname = usePathname();
+
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[#060219] text-white">
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-black text-white rounded-lg"
+      >
+        {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
+
+      {/* Sidebar Overlay for Mobile */}
+      {sidebarOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="bg-black text-white w-70 p-3">
-        <h1 className="font-bold text-2xl mb-6">Admin Dashboard</h1>
-        <span className="font-semibold block mb-3 text-blue-300">Menu</span>
-        <nav className="flex flex-col gap-2">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="p-2 flex items-center gap-2 rounded hover:bg-gray-800 hover:text-blue-400 transition"
-              >
-                <Icon className="w-5 h-5" />
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+      <aside
+        className={`
+    lg:static lg:translate-x-0
+    fixed top-0 left-0  z-40
+    bg-black text-white w-64
+    transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+    transition-transform duration-300 ease-in-out
+  `}
+      >
+        <div className="flex flex-col h-full p-4">
+          {/* Logo */}
+          <div className="mb-4 p-3">
+            <h1 className="font-bold text-2xl mb-1">Admin Panel</h1>
+          </div>
+
+          {/* Menu */}
+          <div className="flex-1">
+            <h3 className="font-semibold text-blue-700 mb-3 p-3">MENU</h3>
+            <nav className="space-y-1">
+              {menuItems.map((item) => {
+                const isActive =
+                  pathname === item.href ||
+                  pathname?.startsWith(`${item.href}/`);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setSidebarOpen(false)}
+                    className={`
+                      block p-3 rounded
+                      transition-colors duration-200
+                      ${
+                        isActive
+                          ? "bg-blue-600 text-white"
+                          : "hover:bg-gray-800 text-gray-300"
+                      }
+                    `}
+                  >
+                    {item.label}
+                    {isActive && <span className="ml-2 text-xs">●</span>}
+                  </Link>
+                );
+              })}
+              <div className="border-t">
+                <Link
+                   href="/"
+                   className="flex gap-3 mt-3">  
+                  <LogOut /> Log out
+                </Link>
+              </div>
+            </nav>
+          </div>
+        </div>
       </aside>
 
-      {/* Main content */}
-      <main className="flex-1 p-6 bg-[#060219] text-white">
-        {children}
+      {/* Main Content */}
+      <main className="flex-1  min-h-screen">
+        {/* Top Bar */}
+        <div className="sticky top-0 z-30 bg-[#060219] border-b border-gray-800 px-6 py-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold">{getGreeting()} Lord</h1>
+              <p className="text-gray-400">Manage your apartment complex</p>
+            </div>
+
+            <div className="flex items-center gap-4">
+              {/* Search Bar */}
+              <div className="relative flex-1 md:flex-initial">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full md:w-64 pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              {/* Notifications */}
+              <button className="p-2 hover:bg-gray-800 rounded transition-colors">
+                <Bell className="w-5 h-5 text-gray-400" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Page Content */}
+        <div className="p-6">{children}</div>
       </main>
     </div>
   );

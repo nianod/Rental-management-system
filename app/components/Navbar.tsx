@@ -8,18 +8,21 @@ import Image from 'next/image';
 const Navbar = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const [isClient, setIsClient] = useState(false);
+  const [userRole, setUserRole] = useState<'tenant' | 'admin' | null>(null);
 
   useEffect(() => {
-    setIsClient(true); // signals that we're now on the client
+    setIsClient(true);
 
-    const token = typeof window !== 'undefined'
-      ? localStorage.getItem('token')
-      : null;
+    if (typeof window === 'undefined') return;
+
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('userRole') as 'tenant' | 'admin' | null;
 
     setIsLoggedIn(Boolean(token));
+    setUserRole(role);
   }, [setIsLoggedIn]);
 
-  const navContents = {
+   const navContents = {
     logo: '/logoipsum-292.svg',
     title: 'Titan Rental',
   };
@@ -42,7 +45,7 @@ const Navbar = () => {
           </h1>
         </Link>
 
-        {/* Before hydration finishes, render a stable, SSR-safe view */}
+        {/* Before hydration finishes, keep SSR-safe */}
         {!isClient ? (
           <Link
             href="/auth/login"
@@ -51,28 +54,68 @@ const Navbar = () => {
             Login
           </Link>
         ) : isLoggedIn ? (
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:flex space-x-6">
-              <Link href="/dashboard" className="text-gray-300 hover:text-blue-600">
-                Dashboard
-              </Link>
-              <Link href="/updates" className="text-gray-300 hover:text-blue-600">
-                Updates
-              </Link>
-              <Link href="/arreas" className="text-gray-300 hover:text-blue-600">
-                Arrears
-              </Link>
+          userRole === 'tenant' ? (
+            // Tenant navbar
+            <div className="flex items-center space-x-4">
+              <div className="hidden md:flex space-x-6">
+                <Link href="/tenant/tenant-dashboard" className="text-gray-300 hover:text-blue-600">
+                  Dashboard
+                </Link>
+                <Link href="/tenant/payments" className="text-gray-300 hover:text-blue-600">
+                  Payments
+                </Link>
+                <Link href="/tenant/messages" className="text-gray-300 hover:text-blue-600">
+                  Messages
+                </Link>
+              </div>
+              <button
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  localStorage.removeItem('userRole');
+                  setIsLoggedIn(false);
+                  setUserRole(null);
+                }}
+                className="bg-gradient-to-br from-red-500 to-red-800 text-white px-6 py-2 rounded-lg"
+              >
+                Logout
+              </button>
             </div>
-            <button
-              onClick={() => {
-                localStorage.removeItem('token');
-                setIsLoggedIn(false);
-              }}
-              className="bg-gradient-to-br from-red-500 to-red-800 text-white px-6 py-2 rounded-lg"
-            >
-              Logout
-            </button>
-          </div>
+          ) : (
+            // Admin navbar
+            <div className="flex items-center space-x-4">
+              <div className="hidden md:flex space-x-6">
+                <Link href="/admin" className="text-gray-300 hover:text-blue-600">
+                  Admin Dashboard
+                </Link>
+                <Link href="/admin/tenants" className="text-gray-300 hover:text-blue-600">
+                  Tenants
+                </Link>
+                <Link href="/admin/messages" className="text-gray-300 hover:text-blue-600">
+                  Messages
+                </Link>
+              </div>
+                           <div className="hidden lg:flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold">A</span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white">Admin</p>
+                  <p className="text-xs text-gray-400">Landlord</p>
+                </div>
+              </div>
+              {/* <button
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  localStorage.removeItem('userRole');
+                  setIsLoggedIn(false);
+                  setUserRole(null);
+                }}
+                className="bg-gradient-to-br from-red-500 to-red-800 text-white px-6 py-2 rounded-lg"
+              >
+                Logout
+              </button> */}
+            </div>
+          )
         ) : (
           <Link
             href="/auth/login"
