@@ -1,7 +1,7 @@
 //admin/admin-dashboard
 import React from 'react';
 import Link from 'next/link';
-import { HomeIcon, UserIcon, FileTextIcon, CalendarIcon, CreditCardIcon, SettingsIcon, MessageSquareIcon } from 'lucide-react';
+import { ChurchIcon, UserIcon, FileTextIcon, CalendarIcon, CreditCardIcon, SettingsIcon, MessageSquareIcon, HomeIcon } from 'lucide-react';
 
 const menuItems = [
   { href: '/admin', label: 'Dashboard', icon: HomeIcon },
@@ -11,6 +11,7 @@ const menuItems = [
   { href: '/admin/messages', label: 'Messages', icon: MessageSquareIcon },
   { href: '/admin/updates', label: 'Announcements', icon: CalendarIcon },
   { href: '/admin/settings', label: 'Settings', icon: SettingsIcon },
+  { href: '/admin/rooms', label: 'Rooms', icon: ChurchIcon },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
