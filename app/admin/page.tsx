@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>Welcome to Admin Dashboard</div>
+    <div className='mt-32 text-white'>Yoooooooooooooooooooooooooooooohh</div>
   )
 }
 

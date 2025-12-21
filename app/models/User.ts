@@ -1,4 +1,4 @@
-import mongoose, { Schema, models, model } from "mongoose";
+import { Schema, models, model } from "mongoose";
 
 const UserSchema = new Schema(
   {
@@ -14,5 +14,4 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-// Prevent model overwrite in Next.js
 export default models.User || model("User", UserSchema);
