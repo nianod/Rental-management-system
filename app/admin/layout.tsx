@@ -13,15 +13,11 @@ const menuItems = [
   { href: '/admin/settings', label: 'Settings', icon: SettingsIcon },
 ];
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="bg-black text-white w-80 p-3">
+      <aside className="bg-black text-white w-70 p-3">
         <h1 className="font-bold text-2xl mb-6">Admin Dashboard</h1>
         <span className="font-semibold block mb-3 text-blue-300">Menu</span>
         <nav className="flex flex-col gap-2">
