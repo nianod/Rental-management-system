@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Search, Mail, Phone, Home, Calendar, Edit, Trash2, Eye } from 'lucide-react';
+import { Plus, Search, Mail, Phone, Home, Calendar, Edit, Trash2 } from 'lucide-react';
 import RegisterTenantForm from '@/app/admin/tenants/Register';
 interface Tenant {
   id: number;

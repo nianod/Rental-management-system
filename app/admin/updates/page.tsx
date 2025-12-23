@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 
-const page = () => {
+const Page = () => {
   
   const [form, setForm] = useState({
     update: "",
-    category: ""
+    description: ""
   })
 
   const [loading, setLoading] = useState<boolean>(false)
@@ -27,21 +27,23 @@ const page = () => {
         onSubmit={handleSubmit}
         className="max-w-lg space-y-4 bg-gray-900 p-6 rounded-xl border border-gray-700"
       >
-        <input
-          name="Category" 
-          value={form.category}
-          onChange={handleChange}
-          placeholder="Category"
-          required
-          className="w-full px-3 py-2 rounded bg-gray-800 border border-gray-700"
-        />
-        <textarea
-          name="description"
-          value={form.update}
-          onChange={handleChange}
-          placeholder="Description..."
-          className="w-full px-3 py-2 rounded bg-gray-800 border border-gray-700"
-        />
+ <input
+  name="category"
+  value={form.update}
+  onChange={handleChange}
+  placeholder="Category"
+  required
+  className="w-full px-3 py-2 rounded bg-gray-800 border border-gray-700"
+/>
+
+<textarea
+  name="description"
+  value={form.description}
+  onChange={handleChange}
+  placeholder="Description..."
+  className="w-full px-3 py-2 rounded bg-gray-800 border border-gray-700"
+/>
+
 
         <button
           type="submit"
@@ -57,4 +59,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
