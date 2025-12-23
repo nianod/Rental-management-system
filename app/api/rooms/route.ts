@@ -1,4 +1,3 @@
-// app/api/admin/rooms/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/app/lib/mongoose';
 import Room from '@/app/models/Room';
@@ -6,9 +5,8 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 
-// Optional: simple admin check from Authorization header
-async function requireAdmin(req: NextRequest) {
-  const auth = req.headers.get('authorization') || '';
+ async function requireAdmin(req: NextRequest) {
+  const auth = req.headers.get('authorization') || ''
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
   if (!token) throw new Error('Unauthorized');
 
@@ -19,7 +17,8 @@ async function requireAdmin(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
-    await requireAdmin(req); // remove if you’ll secure later
+    // await requireAdmin(req); 
+  
 
     const body = await req.json();
     const { roomNumber, title, description, price, features, status } = body;
@@ -63,3 +62,4 @@ export async function GET() {
     );
   }
 }
+

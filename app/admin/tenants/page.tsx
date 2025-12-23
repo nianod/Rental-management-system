@@ -1,5 +1,5 @@
 // app/admin/tenants/page.tsx - Main Tenants Page
-'use client';
+'use client'
 
 import { useState } from 'react';
 import { Plus, Search, Mail, Phone, Home, Calendar, Edit, Trash2 } from 'lucide-react';

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from 'react'
+import axios from 'axios'
 
 const Page = () => {
   
@@ -16,8 +17,17 @@ const Page = () => {
     setForm(prev => ({...prev, [e.target.name]: e.target.value}))
   }
  
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
+    try {
+      const res = await axios.post('/api/updates', form)
+      setRes(res.data.message)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
   }
   return (
  <div className="min-h-screen bg-[#060219] text-white p-8">
@@ -28,10 +38,10 @@ const Page = () => {
         className="max-w-lg space-y-4 bg-gray-900 p-6 rounded-xl border border-gray-700"
       >
  <input
-  name="category"
+  name="update"
   value={form.update}
   onChange={handleChange}
-  placeholder="Category"
+  placeholder="Update"
   required
   className="w-full px-3 py-2 rounded bg-gray-800 border border-gray-700"
 />

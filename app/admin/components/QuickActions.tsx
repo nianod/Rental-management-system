@@ -56,10 +56,10 @@ export default function QuickActions() {
   ]
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-6">
+    <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl p-6 w-100%">
       <h2 className="text-lg font-bold text-white mb-6">Quick Actions</h2>
       
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
         {actions.map((action, index) => (
           <Link
             key={index}
