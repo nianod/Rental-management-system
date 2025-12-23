@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import axios from 'axios';
 import { X, User, Mail, Phone, Home, DollarSign, Calendar, Key } from 'lucide-react';
 
 interface RegisterTenantFormProps {
@@ -32,9 +33,21 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await axios.post('/api/tenant', formData);
+      console.log(response.data);
+      setLoading(false);
+      onClose();
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
     
     const newErrors: Record<string, string> = {};
 
