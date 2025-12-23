@@ -1,7 +1,7 @@
-// app/admin/rooms/page.tsx
-'use client';
+  'use client';
 
 import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export default function AdminRoomsPage() {
   const [form, setForm] = useState({
@@ -25,11 +25,11 @@ export default function AdminRoomsPage() {
     setMessage(null);
 
     try {
-      const res = await fetch('/api/admin/rooms', {
+      const res = await fetch('/api/rooms', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': `Bearer ${adminToken}` // if you enforce admin auth
+           
         },
         body: JSON.stringify({
           roomNumber: form.roomNumber,
@@ -125,7 +125,7 @@ export default function AdminRoomsPage() {
           disabled={loading}
           className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded font-semibold"
         >
-          {loading ? 'Saving...' : 'Create Room'}
+          {loading ? <Loader2 className="animate-spin" /> : 'Create Room'}
         </button>
 
         {message && <p className="mt-2 text-sm">{message}</p>}

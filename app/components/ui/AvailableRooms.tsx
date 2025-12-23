@@ -90,24 +90,29 @@ const AvailableRooms = ({ variant = 'home' }: { variant?: 'home' | 'bookings' })
   const [showOnlyAvailable, setShowOnlyAvailable] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const res = await fetch('/api/rooms', { cache: 'no-store' });
-        const data = await res.json();
-        if (res.ok) {
-          setRooms(data);
-        } else {
-          console.error('Failed to load rooms', data);
-        }
-      } catch (err) {
-        console.error('ROOMS FETCH ERROR', err);
-      } finally {
-        setLoading(false);
+useEffect(() => {
+  const load = async () => {
+    try {
+      const res = await fetch('/api/rooms', { cache: 'no-store' });
+      console.log('ROOMS STATUS', res.status);
+
+      if (!res.ok) {
+        const text = await res.text(); // will show HTML if it’s a 404/500 page
+        console.error('ROOMS ERROR BODY', text);
+        return;
       }
-    };
-    load();
-  }, []);
+
+      const data = await res.json();
+      setRooms(data);
+    } catch (err) {
+      console.error('ROOMS FETCH ERROR', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  load();
+}, []);
+
 
   const filteredRooms = showOnlyAvailable
     ? rooms.filter(room => room.status === 'vacant')

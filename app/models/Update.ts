@@ -7,3 +7,6 @@ const updateSchema = new Schema(
     },
     { timestamps: true }
 );
+
+const Update = models.Update || model('Update', updateSchema);
+export default Update;
