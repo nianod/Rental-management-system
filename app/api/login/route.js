@@ -1,5 +1,5 @@
 // app/api/login/route.ts or route.js
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { connectDB } from '@/app/lib/mongoose';
 import User from '@/app/models/User';
 import bcrypt from 'bcryptjs';

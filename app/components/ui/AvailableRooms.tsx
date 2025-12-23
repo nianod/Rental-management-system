@@ -1,11 +1,19 @@
-'use client' //Client component
+'use client';
 
-import { useState } from 'react';
-import { Check, Wifi, Car, Droplets, Bed, Bath } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { availableRooms } from '@/app/lib/data';
+import { Check, Wifi, Car, Droplets, Bed, Bath } from 'lucide-react';
 import Button from './Button';
-import type { Room } from '@/app/types/data';
+
+type Room = {
+  _id: string;
+  roomNumber: string;
+  title: string;
+  description: string;
+  price: number;
+  features: string[];
+  status: 'vacant' | 'occupied';
+};
 
 const RoomCard = ({ room }: { room: Room }) => {
   const getFeatureIcon = (feature: string) => {
@@ -14,7 +22,7 @@ const RoomCard = ({ room }: { room: Room }) => {
     if (feature.includes('Bath')) return <Droplets className="w-4 h-4" />;
     return <Check className="w-4 h-4" />;
   };
-
+ 
   return (
     <div className="group bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl overflow-hidden hover:border-black transition-all duration-300 hover:shadow-xl hover:shadow-black/10">
       {/* Room Header */}
@@ -67,7 +75,7 @@ const RoomCard = ({ room }: { room: Room }) => {
 
         {/* Action Button */}
         <Link 
-          href={`/apply?room=${room.id}`}
+          href={`/apply?room=${room._id}`}
           className="block w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg text-center transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25"
         >
           Book 
@@ -77,12 +85,33 @@ const RoomCard = ({ room }: { room: Room }) => {
   );
 };
 
-const AvailableRooms = ({ variant = 'home'} : {variant?: 'home' | 'bookings'}) => {
+const AvailableRooms = ({ variant = 'home' }: { variant?: 'home' | 'bookings' }) => {
+  const [rooms, setRooms] = useState<Room[]>([]);
   const [showOnlyAvailable, setShowOnlyAvailable] = useState(true);
-  
-  const filteredRooms = showOnlyAvailable 
-    ? availableRooms.filter(room => room.status === 'vacant')
-    : availableRooms;
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await fetch('/api/rooms', { cache: 'no-store' });
+        const data = await res.json();
+        if (res.ok) {
+          setRooms(data);
+        } else {
+          console.error('Failed to load rooms', data);
+        }
+      } catch (err) {
+        console.error('ROOMS FETCH ERROR', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
+
+  const filteredRooms = showOnlyAvailable
+    ? rooms.filter(room => room.status === 'vacant')
+    : rooms;
 
   return (
     <section id="rooms" className="py-20 bg-[#060219]">
@@ -112,7 +141,7 @@ const AvailableRooms = ({ variant = 'home'} : {variant?: 'home' | 'bookings'}) =
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              Available Only ({availableRooms.filter(r => r.status === 'vacant').length})
+              Available Only ({filteredRooms.filter(r => r.status === 'vacant').length})
             </button>
             <button
               onClick={() => setShowOnlyAvailable(false)}
@@ -122,7 +151,7 @@ const AvailableRooms = ({ variant = 'home'} : {variant?: 'home' | 'bookings'}) =
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              Show All ({availableRooms.length})
+              Show All ({filteredRooms.length})
             </button>
           </div>
         </div>
@@ -130,7 +159,7 @@ const AvailableRooms = ({ variant = 'home'} : {variant?: 'home' | 'bookings'}) =
         {/* Rooms Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {filteredRooms.map((room: Room) => (
-            <RoomCard key={room.id} room={room} />
+            <RoomCard key={room._id} room={room} />
           ))}
         </div>
 

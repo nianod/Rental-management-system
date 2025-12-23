@@ -64,9 +64,9 @@ const LoginPage = () => {
 
       // Redirect based on role
       if (loginType === 'admin') {
-        router.push('/admin/admin-dashboard');
+        router.push('/admin');
       } else {
-        router.push('/tenant/tenant-dashboard');
+        router.push('/tenant');
       }
 
     } catch (err: unknown) {

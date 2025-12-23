@@ -122,7 +122,7 @@ export default function AdminLayout({
               </div>
 
               {/* Notifications */}
-              <button className="p-2 hover:bg-gray-800 rounded transition-colors">
+              <button title="Messages" className="cursor-pointer p-2 hover:bg-gray-800 rounded transition-colors">
                 <Bell className="w-5 h-5 text-gray-400" />
               </button>
             </div>
