@@ -1,5 +1,4 @@
-//app/api/real-tenant/route.ts
-import bcrypt from 'bcryptjs';
+ import bcrypt from 'bcryptjs';
 import { connectDB } from '@/app/lib/mongoose';
 import Tenant from '@/app/models/real-tenant';  
 import { NextRequest, NextResponse } from 'next/server';

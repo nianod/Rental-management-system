@@ -1,4 +1,3 @@
-// app/admin/tenants/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -6,7 +5,7 @@ import { Plus, Search, Mail, Phone, Home, Calendar, Edit, Trash2 } from 'lucide-
 import RegisterTenantForm from '@/app/admin/tenants/Register';
 
 interface Tenant {
-  _id: string;            // from Mongo
+  _id: string;            
   name: string;
   email: string;
   phone: string;
@@ -24,8 +23,7 @@ export default function TenantsPage() {
   const [tenants, setTenants] = useState<Tenant[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Load tenants from API
-  useEffect(() => {
+   useEffect(() => {
     const loadTenants = async () => {
       try {
         const res = await fetch('/api/tenant', { cache: 'no-store' });
@@ -62,21 +60,31 @@ export default function TenantsPage() {
     }
   };
 
-  const handleAddTenant = (newTenant: Omit<Tenant, 'id'>) => {
-    const tenantWithId = {
-      ...newTenant,
-      id: tenants.length + 1
-    };
-    setTenants([...tenants, tenantWithId]);
-    setRegisterForm(false);
+  const handleAddTenant = (tenant: {
+  name: string;
+  email: string;
+  phone: string;
+  roomNumber: string;
+  rentAmount: number;
+  moveInDate: string;
+  gender: "male" | "female";
+  lastPayment: string;
+}) => {
+  const tenantWithId: Tenant = {
+    _id: crypto.randomUUID(), 
+    ...tenant
   };
+  
+  setTenants(prev => [...prev, tenantWithId]);
+  setRegisterForm(false);
+};
+
   if (loading) {
     return <div>Loading...</div>;
   }
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">Manage Tenants</h1>
           <p className="text-gray-400">Add, edit, or remove tenant information</p>
@@ -91,16 +99,14 @@ export default function TenantsPage() {
         </button>
       </div>
 
-      {/* Registration Form Modal */}
-      {registerForm && (
+       {registerForm && (
         <RegisterTenantForm 
           onClose={() => setRegisterForm(false)}
           onSubmit={handleAddTenant}
         />
       )}
 
-      {/* Search and Filter */}
-      <div className="flex flex-col md:flex-row gap-4">
+       <div className="flex flex-col md:flex-row gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
           <input
@@ -134,8 +140,7 @@ export default function TenantsPage() {
         </div>
       </div>
 
-      {/* Stats Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="p-4 bg-gray-900 rounded-lg">
           <p className="text-gray-400 text-sm mb-1">Total Tenants</p>
           <p className="text-2xl font-bold">{tenants.length}</p>
@@ -160,8 +165,7 @@ export default function TenantsPage() {
         </div>
       </div>
 
-      {/* Tenants Table */}
-      <div className="bg-gray-900 rounded-xl overflow-hidden">
+       <div className="bg-gray-900 rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-800">
@@ -253,8 +257,7 @@ export default function TenantsPage() {
         </div>
       </div>
 
-      {/* Pagination */}
-      <div className="flex items-center justify-between">
+       <div className="flex items-center justify-between">
         <p className="text-gray-400 text-sm">
           Showing {filteredTenants.length} of {tenants.length} tenants
         </p>
@@ -262,3 +265,4 @@ export default function TenantsPage() {
     </div>
   );
 }
+ 

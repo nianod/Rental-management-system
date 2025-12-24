@@ -1,5 +1,4 @@
-// app/admin/tenants/ Register.tsx
-"use client";
+ "use client";
 
 import { useState } from "react";
 import axios from "axios";
@@ -48,59 +47,75 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
   // Validation
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
+  setErrors({});
 
-    const newErrors: Record<string, string> = {};
+   const newErrors: Record<string, string> = {};
 
-    if (!formData.name) newErrors.name = "Name is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.phone) newErrors.phone = "Phone number is required";
-    if (!formData.roomNumber) newErrors.roomNumber = "Room number is required";
-    if (!formData.rentAmount || Number(formData.rentAmount) <= 0)
-      newErrors.rentAmount = "Valid rent amount is required";
-    if (!formData.moveInDate) newErrors.moveInDate = "Move-in date is required";
-    if (!formData.password) newErrors.password = "Password is required";
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
+  if (!formData.name) newErrors.name = "Name is required";
+  if (!formData.email) newErrors.email = "Email is required";
+  if (!formData.phone) newErrors.phone = "Phone number is required";
+  if (!formData.roomNumber) newErrors.roomNumber = "Room number is required";
+  if (!formData.rentAmount || Number(formData.rentAmount) <= 0)
+    newErrors.rentAmount = "Valid rent amount is required";
+  if (!formData.moveInDate) newErrors.moveInDate = "Move-in date is required";
+  if (!formData.password) newErrors.password = "Password is required";
+  if (formData.password !== formData.confirmPassword) {
+    newErrors.confirmPassword = "Passwords do not match";
+  }
+
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    setLoading(false);
+    return;
+  }
+
+  try {
+     const response = await axios.post("/api/real-tenant", formData);
+    console.log(response.data);
+    
+     const tenantData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      roomNumber: formData.roomNumber,
+      rentAmount: Number(formData.rentAmount),
+      moveInDate: formData.moveInDate,
+      gender: formData.gender as "male" | "female",
+      lastPayment: new Date().toISOString().split("T")[0],
+    };
+
+    onSubmit(tenantData);
+    onClose();
+    
+     setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      roomNumber: "",
+      rentAmount: "",
+      moveInDate: new Date().toISOString().split("T")[0],
+      gender: "male" as "male" | "female",
+      password: "",
+      confirmPassword: "",
+    });
+  } catch (error: unknown) {
+    console.error("TENANT CREATE ERROR:", error);
+    setErrors({ 
+      general: error instanceof Error ? error.message : "Failed to create tenant" 
+    });
+  } finally {
+    setLoading(false);
+  }
+
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      setLoading(false);
       return;
     }
 
-    try {
-      const payload = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        roomNumber: formData.roomNumber,
-        rentAmount: Number(formData.rentAmount), // number
-        moveInDate: formData.moveInDate,
-        gender: formData.gender,
-      };
-
-      const response = await axios.post("/api/tenant", payload);
-      console.log(response.data);
-      onSubmit({
-        ...payload,
-        lastPayment: new Date().toISOString().split("T")[0],
-      });
-      onClose();
-    } catch (error: unknown) {
-      console.error("TENANT CREATE ERROR:", error);
-    } finally {
-      setLoading(false);
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    // Submit data
-    onSubmit({
+     onSubmit({
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
@@ -111,8 +126,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
       lastPayment: new Date().toISOString().split("T")[0],
     });
 
-    // Reset form
-    setFormData({
+     setFormData({
       name: "",
       email: "",
       phone: "",
@@ -132,8 +146,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Clear error when user starts typing
-    if (errors[name]) {
+     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
@@ -173,8 +186,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Personal Information */}
-          <div className="space-y-4">
+           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-300">
               Personal Information
             </h3>

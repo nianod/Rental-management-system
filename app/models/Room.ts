@@ -1,5 +1,4 @@
-//models/Room.ts
-import { Schema, models, model } from 'mongoose';
+ import { Schema, models, model } from 'mongoose';
 
 const roomSchema = new Schema(
   {

@@ -22,15 +22,14 @@ const Page = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setRes(null); // Clear previous response
+    setRes(null); 
     
     try {
       const response = await axios.post("/api/updates", form);
       setRes(response.data.message || "Update sent successfully!");
       setError(null);
       
-      // Clear form on success
-      setForm({ update: "", description: "" });
+       setForm({ update: "", description: "" });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setError(error.response?.data?.message || "Failed to send update");

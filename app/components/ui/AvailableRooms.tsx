@@ -25,8 +25,7 @@ const RoomCard = ({ room }: { room: Room }) => {
  
   return (
     <div className="group bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-2xl overflow-hidden hover:border-black transition-all duration-300 hover:shadow-xl hover:shadow-black/10">
-      {/* Room Header */}
-      <div className="p-6 border-b border-gray-700">
+       <div className="p-6 border-b border-gray-700">
         <div className="flex justify-between items-start mb-4">
           <div>
             <span className="inline-flex items-center gap-2 bg-green-900/50 text-green-300 text-sm font-medium px-3 py-1 rounded-full">
@@ -72,10 +71,9 @@ const RoomCard = ({ room }: { room: Room }) => {
           </div>
         </div>
 
-        {/* Action Button */}
-        <Link 
-          href={`/apply?room=${room._id}`}
-          className="block w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg text-center transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25"
+         <Link 
+           href={`/book?room=${room._id}`}
+           className="block w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg text-center transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25"
         >
           Book 
         </Link>

@@ -1,5 +1,4 @@
-// app/admin/components/QuickActions.tsx
-import Link from 'next/link'
+ import Link from 'next/link'
 import { 
   Users, 
   MessageSquare, 

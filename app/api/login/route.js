@@ -1,5 +1,4 @@
-// app/api/login/route.ts
-import {  NextResponse } from 'next/server';
+ import {  NextResponse } from 'next/server';
 import { connectDB } from '@/app/lib/mongoose';
 import User from '@/app/models/User';
 import bcrypt from 'bcryptjs';
@@ -20,8 +19,7 @@ export async function POST(req) {
       );
     }
 
-    // Look up user by role + identifier
-    const query =
+     const query =
       role === 'tenant'
         ? { roomNumber: identifier, role: 'tenant' }
         : { adminId: identifier, role: 'admin' };
@@ -35,8 +33,7 @@ export async function POST(req) {
       );
     }
 
-    // IMPORTANT: password must be a bcrypt hash stored on the user
-    const isMatch = await bcrypt.compare(password, user.password);
+     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return NextResponse.json(
         { error: 'Invalid credentials' },

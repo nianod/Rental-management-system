@@ -1,4 +1,3 @@
-// lib/data.ts
 import type { Room } from "../types/data";
 
 export const availableRooms: Room[] = [

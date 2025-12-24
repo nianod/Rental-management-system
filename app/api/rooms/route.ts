@@ -1,5 +1,4 @@
-//api/rooms/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+ import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/app/lib/mongoose';
 import Room from '@/app/models/Room';
  

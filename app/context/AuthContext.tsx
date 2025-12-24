@@ -1,5 +1,4 @@
-// app/context/AuthContext.tsx
-'use client';
+ 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 
@@ -17,8 +16,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState<Role>(null);
 
-  // Sync once from localStorage on mount
-  useEffect(() => {
+   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const token = localStorage.getItem('token');

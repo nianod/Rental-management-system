@@ -1,5 +1,4 @@
-// app/authlogin/page.tsx
-'use client';
+ 'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -39,8 +38,7 @@ const LoginPage = () => {
         }),
       });
 
-      // Check if response is JSON
-      const contentType = res.headers.get('content-type');
+       const contentType = res.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
         throw new Error('Server returned an error. Please check server logs.');
       }
@@ -53,8 +51,7 @@ const LoginPage = () => {
         return;
       }
 
-      // Save token only on client side
-      if (mounted && typeof window !== 'undefined') {
+       if (mounted && typeof window !== 'undefined') {
         localStorage.setItem('token', data.token);
         localStorage.setItem('userRole', data.role);
         
@@ -62,8 +59,7 @@ const LoginPage = () => {
 
       console.log("role", data.role);
 
-      // Redirect based on role
-      if (loginType === 'admin') {
+       if (loginType === 'admin') {
         router.push('/admin');
       } else {
         router.push('/tenant');
@@ -103,8 +99,7 @@ const LoginPage = () => {
 
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column */}
-            <div>
+             <div>
               <div className="mb-8">
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
                   <span className="text-white">Welcome Back to</span>
@@ -118,8 +113,7 @@ const LoginPage = () => {
                 </p>
               </div>
 
-              {/* Login Type Toggle */}
-              <div className="mb-10">
+               <div className="mb-10">
                 <div className="inline-flex bg-gray-800/50 backdrop-blur-sm rounded-lg p-1">
                   <button
                     onClick={() => setLoginType('tenant')}
@@ -146,8 +140,7 @@ const LoginPage = () => {
                 </div>
               </div>
 
-              {/* Features List */}
-              <div className="space-y-6">
+               <div className="space-y-6">
                 <h3 className="text-xl font-semibold text-white mb-4">
                   What you can do after login:
                 </h3>
@@ -172,8 +165,7 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Right Column - Login Form */}
-            <div>
+             <div>
               <div className="bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-lg border border-gray-700 rounded-3xl p-8 md:p-10 shadow-2xl shadow-blue-900/20">
                 <div className="text-center mb-10">
                   <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -191,8 +183,7 @@ const LoginPage = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Room Number/Admin ID Input */}
-                  <div>
+                   <div>
                     <label className="block text-gray-300 text-sm font-medium mb-2">
                       {loginType === 'tenant' ? 'Room Number' : 'Admin ID'}
                       <span className="text-red-400 ml-1">*</span>
@@ -217,8 +208,7 @@ const LoginPage = () => {
                     </div>
                   </div>
 
-                  {/* Password Input */}
-                  <div>
+                   <div>
                     <label className="block text-gray-300 text-sm font-medium mb-2">
                       Password
                       <span className="text-red-400 ml-1">*</span>

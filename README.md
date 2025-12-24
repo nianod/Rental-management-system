@@ -8,7 +8,7 @@ A full‑stack **system management platform** built with **Next.js**. Rental Sys
 
 ---
 
-## 🚀 Overview
+# 🚀 Overview
 
 The **Rental System Management System** is a **landlord–tenant communication and management platform** built to streamline interaction, integrity, transparency, and operational control between **property owners (landlords)** and **tenants**.
 
@@ -25,6 +25,9 @@ It follows modern full-stack best practices using **Next.js App Router**, **API 
 ---
 
 ## 🧠 Key Features
+
+## Authentication in this system is about access control, not user discovery.
+
 
 ### 💬 Landlord–Tenant Communication
 
@@ -108,7 +111,7 @@ It follows modern full-stack best practices using **Next.js App Router**, **API 
 ---
 
 ## 🛠️ Tech Stack
-| ### Frontend | ### Backend | ### Database | ### Tooling |
+| Frontend | Backend | Database | Tooling |
 | --- | --- | --- | --- |
 | **Next.js** (App Router) | **Next.js API Routes** | **MongoDB** | Git & GitHub |
 | **TypeScript & JavaScript** | **Node.js** runtime | **Mongoose** ODM | Environment variables (`.env`) |
@@ -243,10 +246,8 @@ This project is licensed under the **MIT License**.
 > ⭐ If you find this project useful, consider giving it a star!
 
 
-## Authentication in this system is about access control, not user discovery.
-
-
-> ## 👨‍💻 Developer
+> 👨‍💻 Developer
 
 **Arnold**
+
 Aspiring Tech Professional | Full‑Stack Developer

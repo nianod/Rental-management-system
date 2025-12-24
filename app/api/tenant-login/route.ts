@@ -1,4 +1,3 @@
-// app/api/tenant-login/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/app/lib/mongoose';
 import Tenant from '@/app/models/real-tenant';
