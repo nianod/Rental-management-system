@@ -1,5 +1,5 @@
-// app/api/login/route.ts or route.js
-import { NextResponse } from 'next/server';
+// app/api/login/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/app/lib/mongoose';
 import User from '@/app/models/User';
 import bcrypt from 'bcryptjs';
@@ -20,10 +20,13 @@ export async function POST(req) {
       );
     }
 
-    const user =
+    // Look up user by role + identifier
+    const query =
       role === 'tenant'
-        ? await User.findOne({ roomNumber: identifier, role: 'tenant' })
-        : await User.findOne({ adminId: identifier, role: 'admin' });
+        ? { roomNumber: identifier, role: 'tenant' }
+        : { adminId: identifier, role: 'admin' };
+
+    const user = await User.findOne(query);
 
     if (!user) {
       return NextResponse.json(
@@ -32,6 +35,7 @@ export async function POST(req) {
       );
     }
 
+    // IMPORTANT: password must be a bcrypt hash stored on the user
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return NextResponse.json(
@@ -41,12 +45,21 @@ export async function POST(req) {
     }
 
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: user._id.toString(), role: user.role },
       JWT_SECRET,
       { expiresIn: '7d' },
     );
 
-    return NextResponse.json({ token, role: user.role });
+    return NextResponse.json({
+      token,
+      role: user.role,
+      user: {
+        id: user._id,
+        name: user.name,
+        roomNumber: user.roomNumber,
+        email: user.email,
+      },
+    });
   } catch (err) {
     console.error('LOGIN ERROR:', err);
     return NextResponse.json(

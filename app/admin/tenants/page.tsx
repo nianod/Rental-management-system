@@ -1,11 +1,12 @@
-// app/admin/tenants/page.tsx - Main Tenants Page
-'use client'
+// app/admin/tenants/page.tsx
+'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus, Search, Mail, Phone, Home, Calendar, Edit, Trash2 } from 'lucide-react';
 import RegisterTenantForm from '@/app/admin/tenants/Register';
+
 interface Tenant {
-  id: number;
+  _id: string;            // from Mongo
   name: string;
   email: string;
   phone: string;
@@ -20,13 +21,30 @@ export default function TenantsPage() {
   const [registerForm, setRegisterForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [tenants, setTenants] = useState<Tenant[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Mock data - in real app, this would come from an API
-  const initialTenants: Tenant[] = [
-{ id: 5, name: 'Lisa Wang', email: 'lisa@email.com', phone: '+254 756 789 012', roomNumber: '502', rentAmount: 20000, moveInDate: '2023-09-15', gender: 'female', lastPayment: '2023-12-15' },
-  ];
+  // Load tenants from API
+  useEffect(() => {
+    const loadTenants = async () => {
+      try {
+        const res = await fetch('/api/tenant', { cache: 'no-store' });
+        if (!res.ok) {
+          const text = await res.text();
+          console.error('TENANTS LOAD ERROR', res.status, text);
+          return;
+        }
+        const data: Tenant[] = await res.json();
+        setTenants(data);
+      } catch (err) {
+        console.error('TENANTS FETCH ERROR', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadTenants();
+  }, []);
 
-  const [tenants, setTenants] = useState<Tenant[]>(initialTenants);
 
   const filteredTenants = tenants.filter(tenant => {
     const matchesSearch = tenant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -38,9 +56,9 @@ export default function TenantsPage() {
     return matchesSearch && matchesFilter;
   });
 
-  const handleDeleteTenant = (id: number) => {
+  const handleDeleteTenant = (id: string) => {
     if (confirm('Are you sure you want to delete this tenant?')) {
-      setTenants(tenants.filter(tenant => tenant.id !== id));
+      setTenants(tenants.filter(tenant => tenant._id !== id));
     }
   };
 
@@ -52,7 +70,9 @@ export default function TenantsPage() {
     setTenants([...tenants, tenantWithId]);
     setRegisterForm(false);
   };
-
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -164,7 +184,7 @@ export default function TenantsPage() {
                 </tr>
               ) : (
                 filteredTenants.map((tenant) => (
-                  <tr key={tenant.id} className="border-t border-gray-800 hover:bg-gray-800/50">
+                  <tr key={tenant._id} className="border-t border-gray-800 hover:bg-gray-800/50">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
@@ -217,7 +237,7 @@ export default function TenantsPage() {
                           <Edit className="w-4 h-4 text-blue-400" />
                         </button>
                         <button 
-                          onClick={() => handleDeleteTenant(tenant.id)}
+                          onClick={() => handleDeleteTenant(tenant._id)}
                           className="p-2 hover:bg-gray-700 cursor-pointer rounded-lg transition-colors" 
                           title="Delete"
                         >
