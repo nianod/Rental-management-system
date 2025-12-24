@@ -1,5 +1,4 @@
-// app/components/Navbar.tsx
-'use client';
+ 'use client';
 
 import { useAuth } from '@/app/context/AuthContext';
 import Link from 'next/link';

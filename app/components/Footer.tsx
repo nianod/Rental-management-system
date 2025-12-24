@@ -45,8 +45,7 @@ const Footer = () => {
               Streamlining communication between landlords and tenants with our secure digital platform.
             </p>
             
-            {/* Social Links */}
-            <div className="flex gap-3 mb-6">
+             <div className="flex gap-3 mb-6">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}

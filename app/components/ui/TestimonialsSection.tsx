@@ -1,5 +1,4 @@
-// app/components/landing/TestimonialsSection.tsx
-'use client';
+ 'use client';
 
 import { useState } from 'react';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -69,8 +68,7 @@ const TestimonialsSection = () => {
           </p>
         </div>
 
-        {/* Carousel Controls */}
-        <div className="flex justify-end gap-4 mb-8">
+         <div className="flex justify-end gap-4 mb-8">
           <button
             onClick={prevSlide}
             className="w-12 h-12 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-full flex items-center justify-center transition-colors"
@@ -85,8 +83,7 @@ const TestimonialsSection = () => {
           </button>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
@@ -99,8 +96,7 @@ const TestimonialsSection = () => {
           ))}
         </div>
 
-        {/* Carousel Indicators */}
-        <div className="flex justify-center gap-2 mt-8">
+         <div className="flex justify-center gap-2 mt-8">
           {testimonials.map((_, index) => (
             <button
               key={index}

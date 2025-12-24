@@ -1,5 +1,4 @@
-// app/components/landing/CTASection.tsx
-import { ArrowRight, Calendar, Phone } from 'lucide-react';
+ import { ArrowRight, Calendar, Phone } from 'lucide-react';
 import Link from 'next/link';
 
 const CTASection = () => {
@@ -65,8 +64,7 @@ const CTASection = () => {
                 </div>
               </div>
             </div>
-
-            {/* CTA Buttons */}
+ 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/bookings"

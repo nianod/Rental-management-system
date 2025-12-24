@@ -88,8 +88,8 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
         lastPayment: new Date().toISOString().split("T")[0],
       });
       onClose();
-    } catch (error: any) {
-      console.error("TENANT CREATE ERROR:", error.response?.data || error);
+    } catch (error: unknown) {
+      console.error("TENANT CREATE ERROR:", error);
     } finally {
       setLoading(false);
     }

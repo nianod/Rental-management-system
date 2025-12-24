@@ -28,111 +28,93 @@ It follows modern full-stack best practices using **Next.js App Router**, **API 
 
 ### 💬 Landlord–Tenant Communication
 
-Secure messaging between landlords and tenants
+- Secure messaging between landlords and tenants
 
-Centralized communication history
+- Centralized communication history
 
-Broadcast announcements (e.g. rent reminders, maintenance notices)
+- Broadcast announcements (e.g. rent reminders, maintenance notices)
 
 ### 🏠 Tenant & Property Management
 
-Tenant records management
+- Tenant records management
 
-Property/room association
+- Property/room association
 
-Status tracking (active, inactive, vacated)
+- Status tracking (active, inactive, vacated)
 
-Vacancy status management per property/unit
+- Vacancy status management per property/unit
 
 ### 🔐 Authentication & Authorization
 
-Secure authentication flow
+- Secure authentication flow
 
-Role-based access control (Landlord / Tenant / Admin)
+- Role-based access control (Landlord / Tenant / Admin)
 
-Protected routes using middleware
+- Protected routes using middleware
 
 ### 📊 Dashboard
 
-Role-based dashboards
+* Role-based dashboards
 
-System summaries and activity overviews
+* System summaries and activity overviews
 
-Rent payment insights for landlords
+* Rent payment insights for landlords
 
-Clean and responsive UI
+* Clean and responsive UI
 
 ### 🗂️ Data Management
 
-CRUD operations for tenants, properties, messages, and rent records
+- CRUD operations for tenants, properties, messages, and rent records
 
-MongoDB collections managed using Mongoose models
+- MongoDB collections managed using Mongoose models
 
-Server-side validation
+- Server-side validation
 
 ### ⚙️ Backend API
 
-Built-in API routes using Next.js
+- Built-in API routes using Next.js
 
-Clean separation of Authentication, Authorization, models, and utilities
+- Clean separation of Authentication, Authorization, models, and utilities
 
-Centralized database connection logic
+- Centralized database connection logic
 
-Secure endpoints for rent tracking and vacancy queries
+- Secure endpoints for rent tracking and vacancy queries
 
 ### 🌐 Modern Frontend
 
-Next.js (App Router)
+- Next.js (App Router)
 
-Server Components & Client Components
+- Server Components & Client Components
 
-Responsive layout
+- Responsive layout
 
-Reusable UI components
+- Reusable UI components
 
 ### 💰 Rent Payment Tracking
 
-Landlords can track rent payments per tenant
+- Landlords can track rent payments per tenant
 
-Payment status indicators (Paid / Pending / Overdue)
+- Payment status indicators (Paid / Pending / Overdue)
 
-Historical rent records for accountability
+- Historical rent records for accountability
 
 ### 👀 Public Vacancy Viewing
 
-Visitors can view available vacant rooms or properties
+* Visitors can view available vacant rooms or properties
 
-No authentication required for vacancy listings
+* No authentication required for vacancy listings
 
-Clear property details and availability status
+* Clear property details and availability status
 ---
 
 ## 🛠️ Tech Stack
+| ### Frontend | ### Backend | ### Database | ### Tooling |
+| --- | --- | --- | --- |
+| **Next.js** (App Router) | **Next.js API Routes** | **MongoDB** | Git & GitHub |
+| **TypeScript & JavaScript** | **Node.js** runtime | **Mongoose** ODM | Environment variables (`.env`) |
+| **React** | **Mongoose** ODM | **Prisma** ORM | ESLint |
+| Tailwind CSS | **Prisma** ORM | |
 
-### Frontend
-
-* **Next.js** (App Router)
-* **TypeScript & JavaScript**
-* **React**
-* CSS / Tailwind CSS 
-
-### Backend
-
-* **Next.js API Routes**
-* **Node.js** runtime
-* **Mongoose** ODM
-* **Prisma** ORM
-
-### Database
-
-* **MongoDB** 
-
-### Tooling
-
-* Git & GitHub
-* Environment variables (`.env`)
-* ESLint
-* Prisma
 
 ---
 

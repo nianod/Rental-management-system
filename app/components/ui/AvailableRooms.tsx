@@ -44,7 +44,7 @@ const RoomCard = ({ room }: { room: Room }) => {
         <p className="text-gray-300">{room.description}</p>
       </div>
 
-      {/* Room Details */}
+    
       <div className="p-6">
         <div className="flex items-center gap-6 mb-6">
           <div className="flex items-center gap-2">
@@ -56,8 +56,7 @@ const RoomCard = ({ room }: { room: Room }) => {
             <span className="text-gray-300">Private</span>
           </div>
         </div>
-
-        {/* Features */}
+ 
         <div className="mb-6">
           <h4 className="text-gray-400 text-sm font-medium mb-3">INCLUDED FEATURES</h4>
           <div className="flex flex-wrap gap-2">
@@ -97,7 +96,7 @@ useEffect(() => {
       console.log('ROOMS STATUS', res.status);
 
       if (!res.ok) {
-        const text = await res.text(); // will show HTML if it’s a 404/500 page
+        const text = await res.text();  
         console.error('ROOMS ERROR BODY', text);
         return;
       }
@@ -121,7 +120,6 @@ useEffect(() => {
   return (
     <section id="rooms" className="py-20 bg-[#060219]">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="text-gray-300">Available </span>
@@ -135,7 +133,6 @@ useEffect(() => {
           </p>
         </div>
 
-        {/* Filter Toggle */}
         <div className="flex justify-center mb-8">
           <div className="inline-flex bg-gray-800/50 backdrop-blur-sm rounded-lg p-1">
             <button
@@ -161,15 +158,13 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* Rooms Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {filteredRooms.map((room: Room) => (
             <RoomCard key={room._id} room={room} />
           ))}
         </div>
 
-        {/* CTA */}
-        {variant === 'home' ? (
+         {variant === 'home' ? (
            <Button />
         ) : (
           <div className="text-center">
