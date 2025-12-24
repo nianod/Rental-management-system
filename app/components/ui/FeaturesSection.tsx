@@ -1,5 +1,4 @@
-// app/components/landing/FeaturesSection.tsx
-import { Shield, MessageSquare, CreditCard, Wrench, Bell, FileText } from 'lucide-react';
+ import { Shield, MessageSquare, CreditCard, Wrench, Bell, FileText } from 'lucide-react';
 import { features } from '@/app/lib/data';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -57,8 +56,7 @@ const FeaturesSection = () => {
           ))}
         </div>
 
-        {/* Stats Bar */}
-        <div className="mt-20 bg-gradient-to-r from-[#07072e] to-[black] border border-blue-700/30 rounded-2xl p-8">
+         <div className="mt-20 bg-gradient-to-r from-[#07072e] to-[black] border border-blue-700/30 rounded-2xl p-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-4xl font-bold text-white mb-2">98%</div>
