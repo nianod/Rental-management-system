@@ -60,7 +60,7 @@ const Navbar = () => {
             </div>
             <button
               onClick={handleLogout}
-              className="bg-gradient-to-br from-red-500 to-red-800 text-white px-6 py-2 rounded-lg"
+              className="cursor-pointer bg-gradient-to-br from-red-500 to-red-800 text-white px-6 py-2 rounded-lg"
             >
               Logout
             </button>
@@ -89,7 +89,7 @@ const Navbar = () => {
             </div>
             <button
               onClick={handleLogout}
-              className="bg-gradient-to-br from-red-500 to-red-800 text-white px-6 py-2 rounded-lg"
+              className="cursor-pointer bg-gradient-to-br from-red-500 to-red-800 text-white px-6 py-2 rounded-lg"
             >
               Logout
             </button>

@@ -6,7 +6,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-const maintenanceMode = true
+const maintenanceMode = false
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
