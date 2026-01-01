@@ -20,9 +20,8 @@ export default function TenantsPage() {
   const [registerForm, setRegisterForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>('all');
-  const { tenants, setTenants, loading } = useTenants()
-  //const [tenants, setTenants] = useState<Tenant[]>([]);
-  //const [loading, setLoading] = useState(true);
+  const [tenants, setTenants] = useState<Tenant[]>([]);
+  const [loading, setLoading] = useState(true);
 
    useEffect(() => {
     const loadTenants = async () => {
@@ -56,20 +55,29 @@ export default function TenantsPage() {
   });
 
   const handleDeleteTenant = (id: string) => {
-    setTenants(tenants.filter(tenant => tenant._id !== id))
     if (confirm('Are you sure you want to delete this tenant?')) {
       setTenants(tenants.filter(tenant => tenant._id !== id));
     }
   };
 
-  const handleAddTenant = (tenant: Omit<Tenant, '_id'>) => {
-    const tenantWithId: Tenant = {
-      _id: crypto.randomUUID(), 
-      ...tenant
-    };
-    setTenants(prev => [...prev, tenantWithId]); // Updates shared state
-    setRegisterForm(false);
+  const handleAddTenant = (tenant: {
+  name: string;
+  email: string;
+  phone: string;
+  roomNumber: string;
+  rentAmount: number;
+  moveInDate: string;
+  gender: "male" | "female";
+  lastPayment: string;
+}) => {
+  const tenantWithId: Tenant = {
+    _id: crypto.randomUUID(), 
+    ...tenant
   };
+  
+  setTenants(prev => [...prev, tenantWithId]);
+  setRegisterForm(false);
+};
 
   if (loading) {
     return <div>Loading...</div>;
