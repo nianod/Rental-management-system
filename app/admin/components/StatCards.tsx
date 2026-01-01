@@ -1,3 +1,5 @@
+//components/StatCards.tsx
+
 "use client"
 
 import StatCard from "./StatCard"
