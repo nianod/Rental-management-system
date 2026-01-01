@@ -5,19 +5,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Bell, Search, LogOut } from "lucide-react";
-
-const menuItems = [
-  { href: "/admin", label: "Dashboard" },
-  { href: "/admin/tenants", label: "Tenants" },
-  { href: "/admin/updates", label: "Announcements" },
-  { href: "/admin/rooms", label: "Rooms" },
-  { href: "/admin/payments", label: "Rent Payments" },
-  { href: "/admin/messages", label: "Messages" },
-  { href: "/admin/applications", label: "Applications" },
-  { href: "/admin/settings", label: "Settings" },
-];
-
-
+import menuItems from "./constants/menuitems";
+import { TenantsProvider } from "./context/TenantsContext";
+  
 
 export default function AdminLayout({
   children,
@@ -26,8 +16,9 @@ export default function AdminLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
-
+   
   return (
+    <TenantsProvider>
     <div className="flex min-h-screen bg-[#060219] text-white">
       {/* Mobile Menu Button */}
       <button
@@ -135,6 +126,7 @@ export default function AdminLayout({
         <div className="p-6">{children}</div>
       </main>
     </div>
+    </TenantsProvider>
   );
 }
 
