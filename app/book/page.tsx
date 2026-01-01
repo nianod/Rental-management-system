@@ -1,5 +1,6 @@
 // app/book/page.tsx
 'use client';
+export const dynamic = 'force-dynamic';  
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
