@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>messages here on it</div>
+    <div>No messages yet</div>
   )
 }
 
