@@ -45,7 +45,7 @@ const Footer = () => {
               Streamlining communication between landlords and tenants with our secure digital platform.
             </p>
             
-             <div className="flex gap-3 mb-6">
+  x             <div className="flex gap-3 mb-6">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
@@ -231,24 +231,7 @@ const Footer = () => {
         </div>
 
  
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="max-w-md mx-auto lg:mx-0 lg:max-w-lg">
-            <h4 className="text-lg font-semibold text-white mb-4">Stay Updated</h4>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email for updates"
-                className="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              />
-              <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 whitespace-nowrap">
-                Subscribe
-              </button>
-            </div>
-            <p className="text-gray-500 text-sm mt-3">
-              Get notified about new vacancies and platform updates.
-            </p>
-          </div>
-        </div>
+      
       </div>
 
  
