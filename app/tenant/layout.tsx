@@ -94,15 +94,8 @@ export default function TenantLayout({
             </div>
 
             <div className="flex items-center gap-4">
-              {/* Search Bar */}
-              <div className="relative flex-1 md:flex-initial">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-full md:w-64 pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
-                />
-              </div>
+ 
+ 
 
               {/* Notifications */}
               <Link href="/admin/messages" title="Messages" className="cursor-pointer p-2 hover:bg-gray-800 rounded transition-colors">
