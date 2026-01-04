@@ -5,11 +5,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Bell, Search } from "lucide-react";
-import menuItems from "./constants/menuitems";
-import { TenantsProvider } from "./context/TenantsContext";
-  
+import MenuPaths from "./constants/MenuPaths";
+ 
 
-export default function AdminLayout({
+export default function TenantLayout({      
   children,
 }: {
   children: React.ReactNode;
@@ -18,7 +17,6 @@ export default function AdminLayout({
   const pathname = usePathname();
    
   return (
-    <TenantsProvider>
     <div className="flex min-h-screen bg-[#060219] text-white">
       {/* Mobile Menu Button */}
       <button
@@ -48,14 +46,14 @@ export default function AdminLayout({
         <div className="flex flex-col h-full p-4">
           {/* Logo */}
           <div className="mb-4 p-3">
-            <h1 className="font-bold text-2xl mb-1">Admin Panel</h1>
+            <h1 className="font-bold text-2xl mb-1">Tenant Portal</h1>
           </div>
 
           {/* Menu */}
           <div className="flex-1">
             <h3 className="font-semibold text-blue-700 mb-3 p-3">MENU</h3>
             <nav className="space-y-1">
-              {menuItems.map((item) => {
+              {MenuPaths.map((item) => {
                 const isActive =
                   pathname === item.href ||
                   pathname?.startsWith(`${item.href}/`);
@@ -91,8 +89,8 @@ export default function AdminLayout({
         <div className="sticky top-0 z-30 bg-[#060219] border-b border-gray-800 px-6 py-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold">{getGreeting()} Lord</h1>
-              <p className="text-gray-400">Manage your apartment complex</p>
+              <h1 className="text-2xl font-bold">Hi Arnold</h1>
+              <p className="text-gray-400">Have a nice stay here</p>
             </div>
 
             <div className="flex items-center gap-4">
@@ -118,6 +116,6 @@ export default function AdminLayout({
         <div className="p-6">{children}</div>
       </main>
     </div>
-    </TenantsProvider>
+    
   );
 }
