@@ -98,7 +98,7 @@ export default function TenantLayout({
  
 
               {/* Notifications */}
-              <Link href="/admin/messages" title="Messages" className="cursor-pointer p-2 hover:bg-gray-800 rounded transition-colors">
+              <Link href="/tenant/messages" title="Messages" className="cursor-pointer p-2 hover:bg-gray-800 rounded transition-colors">
                 <Bell className="w-5 h-5 text-gray-400" />
               </Link>
             </div>
