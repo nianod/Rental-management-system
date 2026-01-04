@@ -5,5 +5,6 @@ const page = () => {
     <div>No messages yet</div>
   )
 }
-
 export default page
+
+

@@ -36,8 +36,7 @@ export default function AdminLayout({
         />
       )}
 
-      {/* Sidebar */}
-      <aside
+       <aside
         className={`
     lg:static lg:translate-x-0
     fixed top-0 left-0  z-40
@@ -81,13 +80,7 @@ export default function AdminLayout({
                   </Link>
                 );
               })}
-              <div className="border-t">
-                <Link
-                   href="/"
-                   className="flex gap-3 mt-3">  
-                  <LogOut /> Log out
-                </Link>
-              </div>
+ 
             </nav>
           </div>
         </div>
@@ -129,5 +122,3 @@ export default function AdminLayout({
     </TenantsProvider>
   );
 }
-
-
