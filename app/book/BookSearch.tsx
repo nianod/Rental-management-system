@@ -122,7 +122,7 @@ export default function SimpleBookPage() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  placeholder="John Doe"
+                  placeholder="Arnold"
                   required
                   className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
                 />
@@ -138,7 +138,7 @@ export default function SimpleBookPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="john@example.com"
+                  placeholder="arnold@example.com"
                   required
                   className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
                 />
@@ -179,7 +179,7 @@ export default function SimpleBookPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className={`w-full py-3 px-4 rounded-lg font-medium ${
+                className={`w-full py-3 px-4 cursor-pointer rounded-lg font-medium ${
                   submitting
                     ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
                     : 'bg-blue-600 hover:bg-blue-700 text-white'

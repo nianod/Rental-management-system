@@ -89,7 +89,7 @@ export default function TenantLayout({
         <div className="sticky top-0 z-30 bg-[#060219] border-b border-gray-800 px-6 py-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold">Hi Arnold</h1>
+              <h1 className="text-2xl font-bold">{getGreeting()} Arnold</h1>
               <p className="text-gray-400">Have a nice stay here</p>
             </div>
 
