@@ -3,18 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  Home, 
-  Calendar, 
-  DollarSign, 
-  Bell, 
-  MessageSquare,
-  Wifi,
-  Droplets,
-  Car,
-  CheckCircle,
-  Clock
-} from 'lucide-react';
+import { Home, DollarSign, Bell, MessageSquare } from 'lucide-react';
 
 type Tenant = {
   name: string;
@@ -59,10 +48,7 @@ export default function TenantDashboard() {
     );
   }
 
-  // Calculate days until next payment
-  const daysUntilPayment = Math.ceil(
-    (new Date(tenant.nextPaymentDue).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
-  );
+  
 
   // Calculate months stayed
   const moveIn = new Date(tenant.moveInDate);

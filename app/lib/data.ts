@@ -2,7 +2,7 @@ import type { Room } from "../types/data";
 
 export const availableRooms: Room[] = [
   {
-    id: 1,
+    _id: 1,
     roomNumber: '21',
     title: 'Premium Studio',
     description: 'Modern studio with smart home features, perfect for professionals. Recently renovated with high-end finishes.',
@@ -11,7 +11,7 @@ export const availableRooms: Room[] = [
     status: 'vacant'
   },
   {
-    id: 2,
+    _id: 2,
     roomNumber: '65',
     title: 'Deluxe 1-Bedroom',
     description: 'Spacious one-bedroom with separate living area, kitchenette, and balcony with city views.',
@@ -20,7 +20,7 @@ export const availableRooms: Room[] = [
     status: 'vacant'
   },
   {
-    id: 3,
+    _id: 3,
     roomNumber: '45',
     title: 'Executive 2-Bedroom',
     description: 'Luxury two-bedroom apartment with panoramic views, premium appliances, and walk-in closets.',
@@ -29,7 +29,7 @@ export const availableRooms: Room[] = [
     status: 'vacant'
   },
   {
-    id: 4,
+    _id: 4,
     roomNumber: '65',
     title: 'Economy Studio',
     description: 'Budget-friendly studio with all essential amenities, perfect for students.',

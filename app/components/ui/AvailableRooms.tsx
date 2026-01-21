@@ -115,6 +115,7 @@ useEffect(() => {
     ? rooms.filter(room => room.status === 'vacant')
     : rooms;
 
+    if(loading) return <div>Loading...</div>;
   return (
     <section id="rooms" className="py-20  ">
       <div className="container mx-auto px-4">
