@@ -4,7 +4,7 @@ import getGreeting from "@/app/utils/greeting";
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Bell, Search } from "lucide-react";
+import { Menu, X, Bell } from "lucide-react";
 import MenuPaths from "./constants/MenuPaths";
  
 
