@@ -36,7 +36,7 @@ const Updates = () => {
         <h3 className="font-semibold text-blue-700 p-3">ANNOUNCEMENTS FROM LANDLORD</h3>
          <div className="space-y-4">
             {updates.map((item) => (
-                <div key={item.id} className="border p-4 rounded bg-gray-900">
+                <div key={item._id} className="border p-4 rounded bg-gray-900">
                     <h3 className="font-semibold">{item.update}</h3>
                     <p className="text-sm text-gray-300">
                         {item.description}
