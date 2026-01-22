@@ -1,4 +1,5 @@
- "use client";
+//app/admin/tenants/Register.tsx
+"use client";
 
 import { useState } from "react";
 import axios from "axios";
@@ -36,104 +37,90 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [copyPassword, setCopyPassword] = useState(false);
 
-  const copy = () => {
-    
-  }
-
-  // Validation
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(formData.password);
+      setCopyPassword(true);
+      setTimeout(() => setCopyPassword(false), 3000);
+    } catch (err: any) {
+      console.log("failed to copy");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
-  setErrors({});
+    e.preventDefault();
+    setLoading(true);
+    setErrors({});
 
-   const newErrors: Record<string, string> = {};
+    const newErrors: Record<string, string> = {};
 
-  if (!formData.name) newErrors.name = "Name is required";
-  if (!formData.email) newErrors.email = "Email is required";
-  if (!formData.phone) newErrors.phone = "Phone number is required";
-  if (!formData.roomNumber) newErrors.roomNumber = "Room number is required";
-  if (!formData.rentAmount || Number(formData.rentAmount) <= 0)
-    newErrors.rentAmount = "Valid rent amount is required";
-  if (!formData.moveInDate) newErrors.moveInDate = "Move-in date is required";
-  if (!formData.password) newErrors.password = "Password is required";
-  if (formData.password !== formData.confirmPassword) {
-    newErrors.confirmPassword = "Passwords do not match";
-  }
-
-  if (Object.keys(newErrors).length > 0) {
-    setErrors(newErrors);
-    setLoading(false);
-    return;
-  }
-
-  try {
-     const response = await axios.post("/api/real-tenant", formData);
-    console.log(response.data);
-    
-     const tenantData = {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      roomNumber: formData.roomNumber,
-      rentAmount: Number(formData.rentAmount),
-      moveInDate: formData.moveInDate,
-      gender: formData.gender as "male" | "female",
-      lastPayment: new Date().toISOString().split("T")[0],
-    };
-
-    onSubmit(tenantData);
-    onClose();
-    
-     setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      roomNumber: "",
-      rentAmount: "",
-      moveInDate: new Date().toISOString().split("T")[0],
-      gender: "male" as "male" | "female",
-      password: "",
-      confirmPassword: "",
-    });
-  } catch (error: unknown) {
-    console.error("TENANT CREATE ERROR:", error);
-    setErrors({ 
-      general: error instanceof Error ? error.message : "Failed to create tenant" 
-    });
-  } finally {
-    setLoading(false);
-  }
-
+    if (!formData.name) newErrors.name = "Name is required";
+    if (!formData.email) newErrors.email = "Email is required";
+    if (!formData.phone) newErrors.phone = "Phone number is required";
+    if (!formData.roomNumber) newErrors.roomNumber = "Room number is required";
+    if (!formData.rentAmount || Number(formData.rentAmount) <= 0)
+      newErrors.rentAmount = "Valid rent amount is required";
+    if (!formData.moveInDate) newErrors.moveInDate = "Move-in date is required";
+    if (!formData.password) newErrors.password = "Password is required";
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      setLoading(false);
       return;
     }
 
-     onSubmit({
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      roomNumber: formData.roomNumber,
-      rentAmount: Number(formData.rentAmount),
-      moveInDate: formData.moveInDate,
-      gender: formData.gender,
-      lastPayment: new Date().toISOString().split("T")[0],
-    });
+    try {
+      // Send complete data including password
+      const response = await axios.post("/api/real-tenant", {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        roomNumber: formData.roomNumber,
+        rentAmount: Number(formData.rentAmount),
+        moveInDate: formData.moveInDate,
+        gender: formData.gender,
+        password: formData.password, // Include password here
+      });
 
-     setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      roomNumber: "",
-      rentAmount: "",
-      moveInDate: new Date().toISOString().split("T")[0],
-      gender: "male" as "male" | "female",
-      password: "",
-      confirmPassword: "",
-    });
-    setErrors({});
+      console.log("Tenant created:", response.data);
+
+      // Call parent onSubmit callback
+      onSubmit({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        roomNumber: formData.roomNumber,
+        rentAmount: Number(formData.rentAmount),
+        moveInDate: formData.moveInDate,
+        gender: formData.gender as "male" | "female",
+        lastPayment: new Date().toISOString().split("T")[0],
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        roomNumber: "",
+        rentAmount: "",
+        moveInDate: new Date().toISOString().split("T")[0],
+        gender: "male" as "male" | "female",
+        password: "",
+        confirmPassword: "",
+      });
+
+      onClose();
+    } catch (error: any) {
+      console.error("TENANT CREATE ERROR:", error);
+      setErrors({
+        general: error.response?.data?.error || error.message || "Failed to create tenant",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (
@@ -142,16 +129,16 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-     if (errors[name]) {
+    if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const generatePassword = () => {
     const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
     let password = "";
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 12; i++) {
       password += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     setFormData((prev) => ({
@@ -182,6 +169,13 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {/* Show general error if exists */}
+          {errors.general && (
+            <div className="bg-red-900/30 border border-red-700/50 rounded-xl p-4">
+              <p className="text-red-200 text-sm">{errors.general}</p>
+            </div>
+          )}
+
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-300">
               Personal Information
@@ -433,26 +427,24 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
                 )}
               </div>
             </div>
-              <div className="flex items-center gap-2">
-
-             
-            <button
-              type="button"
-              onClick={generatePassword}
-              className="px-4 py-2 cursor-pointer bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors"
-            >
-              Generate Secure Password
-            </button>
-            <button
-              type="button"
-              onClick={copy}
-              disabled={!formData.password}
-              className="flex items-center gap-2 px-4 py-2 cursor-pointer bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors"
-            >
-              <Copy />
-              Copy Password
-            </button>
-             </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={generatePassword}
+                className="px-4 py-2 cursor-pointer bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors"
+              >
+                Generate Secure Password
+              </button>
+              <button
+                type="button"
+                onClick={copy}
+                disabled={!formData.password}
+                className="flex items-center gap-2 px-4 py-2 cursor-pointer bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Copy className="w-4 h-4" />
+                {copyPassword ? "Copied!" : "Copy Password"}
+              </button>
+            </div>
           </div>
 
           {/* Form Actions */}
@@ -467,13 +459,10 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
             <button
               type="submit"
               disabled={loading}
-              className="px-6 cursor-pointer py-3 bg-gradient-to-r from-[#b5015b] to-pink-600 hover:from-[#b5015b]/90 hover:to-pink-600/90 text-white font-medium rounded-lg transition-all duration-300"
+              className="px-6 cursor-pointer py-3 bg-gradient-to-r from-[#b5015b] to-pink-600 hover:from-[#b5015b]/90 hover:to-pink-600/90 text-white font-medium rounded-lg transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? (
-                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-              ) : (
-                "Create Tenant Account"
-              )}
+              {loading && <Loader2 className="w-5 h-5 animate-spin" />}
+              {loading ? "Creating..." : "Create Tenant Account"}
             </button>
           </div>
         </form>

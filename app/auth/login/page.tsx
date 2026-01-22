@@ -1,4 +1,5 @@
- 'use client';
+// app/auth/login/page.tsx
+'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -27,23 +28,37 @@ const LoginPage = () => {
     setLoading(true);
     setError('');
 
+    // Client-side validation
+    if (!formData.roomNumber || !formData.password) {
+      setError('Please fill in all fields');
+      setLoading(false);
+      return;
+    }
+
     try {
+      const payload = {
+        identifier: formData.roomNumber.trim(),
+        password: formData.password.trim(),
+        role: loginType,
+      };
+
+      console.log('Sending login request:', { ...payload, password: '***' }); // Debug log
+
       const res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          identifier: formData.roomNumber,
-          password: formData.password,
-          role: loginType,
-        }),
+        body: JSON.stringify(payload),
       });
 
-       const contentType = res.headers.get('content-type');
+      const contentType = res.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
+        const text = await res.text();
+        console.error('Non-JSON response:', text);
         throw new Error('Server returned an error. Please check server logs.');
       }
 
       const data = await res.json();
+      console.log('Login response:', data); // Debug log
 
       if (!res.ok) {
         setError(data.error || 'Login failed');
@@ -51,15 +66,14 @@ const LoginPage = () => {
         return;
       }
 
-       if (mounted && typeof window !== 'undefined') {
+      if (mounted && typeof window !== 'undefined') {
         localStorage.setItem('token', data.token);
         localStorage.setItem('userRole', data.role);
-        
       }
 
       console.log("role", data.role);
 
-       if (loginType === 'admin') {
+      if (loginType === 'admin') {
         router.push('/admin');
       } else {
         router.push('/tenant');
@@ -82,6 +96,8 @@ const LoginPage = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
+    // Clear error when user starts typing
+    if (error) setError('');
   };
 
   return (
@@ -99,7 +115,7 @@ const LoginPage = () => {
 
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-             <div>
+            <div>
               <div className="mb-8">
                 <h1 className="text-4xl md:text-5xl font-bold mb-6">
                   <span className="text-white">Welcome Back to</span>
@@ -113,10 +129,13 @@ const LoginPage = () => {
                 </p>
               </div>
 
-               <div className="mb-10">
+              <div className="mb-10">
                 <div className="inline-flex bg-gray-800/50 backdrop-blur-sm rounded-lg p-1">
                   <button
-                    onClick={() => setLoginType('tenant')}
+                    onClick={() => {
+                      setLoginType('tenant');
+                      setError('');
+                    }}
                     className={`px-6 cursor-pointer py-3 rounded-md transition-all duration-300 flex items-center gap-2 ${
                       loginType === 'tenant' 
                         ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white' 
@@ -127,7 +146,10 @@ const LoginPage = () => {
                     Tenant Login
                   </button>
                   <button
-                    onClick={() => setLoginType('admin')}
+                    onClick={() => {
+                      setLoginType('admin');
+                      setError('');
+                    }}
                     className={`px-6 cursor-pointer py-3 rounded-md transition-all duration-300 flex items-center gap-2 ${
                       loginType === 'admin' 
                         ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white' 
@@ -140,7 +162,7 @@ const LoginPage = () => {
                 </div>
               </div>
 
-               <div className="space-y-6">
+              <div className="space-y-6">
                 <h3 className="text-xl font-semibold text-white mb-4">
                   What you can do after login:
                 </h3>
@@ -165,7 +187,7 @@ const LoginPage = () => {
               </div>
             </div>
 
-             <div>
+            <div>
               <div className="bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-lg border border-gray-700 rounded-3xl p-8 md:p-10 shadow-2xl shadow-blue-900/20">
                 <div className="text-center mb-10">
                   <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -183,7 +205,7 @@ const LoginPage = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                   <div>
+                  <div>
                     <label className="block text-gray-300 text-sm font-medium mb-2">
                       {loginType === 'tenant' ? 'Room Number' : 'Admin ID'}
                       <span className="text-red-400 ml-1">*</span>
@@ -208,7 +230,7 @@ const LoginPage = () => {
                     </div>
                   </div>
 
-                   <div>
+                  <div>
                     <label className="block text-gray-300 text-sm font-medium mb-2">
                       Password
                       <span className="text-red-400 ml-1">*</span>

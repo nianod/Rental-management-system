@@ -35,7 +35,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/api/login.ts", "app/api/login/route.js", "app/lib/mongoose.js", "app/admin/updates/page.tsx"  ],
+, "app/api/login.ts", "app/api/login/route.js", "app/lib/mongoose.js", "app/admin/updates/page.tsx", "app/api/tests/test-tenant/route.js"  ],
   "exclude": [
     "node_modules"
   ]
