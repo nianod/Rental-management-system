@@ -2,17 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
-import {
-  X,
-  User,
-  Mail,
-  Phone,
-  Home,
-  DollarSign,
-  Calendar,
-  Key,
-  Loader2,
-} from "lucide-react";
+import { X, User, Mail, Phone, Home, DollarSign, Calendar, Key, Loader2, EyeOff, Eye, Copy } from "lucide-react";
 
 interface RegisterTenantFormProps {
   onClose: () => void;
@@ -43,6 +33,12 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [copyPassword, setCopyPassword] = useState(false);
+
+  const copy = () => {
+    
+  }
 
   // Validation
 
@@ -186,7 +182,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-           <div className="space-y-4">
+          <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-300">
               Personal Information
             </h3>
@@ -374,7 +370,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
                 <div className="relative">
                   <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
@@ -383,6 +379,17 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
                       errors.password ? "border-red-500" : "border-gray-700"
                     } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500`}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 cursor-pointer top-1/2 transform -translate-y-1/2"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <Eye className="w-4 h-4 text-gray-500" />
+                    )}
+                  </button>
                 </div>
                 {errors.password && (
                   <p className="text-red-400 text-sm mt-1">{errors.password}</p>
@@ -396,7 +403,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
                 <div className="relative">
                   <Key className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
@@ -407,6 +414,17 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
                         : "border-gray-700"
                     } rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500`}
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 cursor-pointer top-1/2 transform -translate-y-1/2"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <Eye className="w-4 h-4 text-gray-500" />
+                    )}
+                  </button>
                 </div>
                 {errors.confirmPassword && (
                   <p className="text-red-400 text-sm mt-1">
@@ -415,14 +433,26 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
                 )}
               </div>
             </div>
+              <div className="flex items-center gap-2">
 
+             
             <button
               type="button"
               onClick={generatePassword}
-              className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors"
+              className="px-4 py-2 cursor-pointer bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors"
             >
               Generate Secure Password
             </button>
+            <button
+              type="button"
+              onClick={copy}
+              disabled={!formData.password}
+              className="flex items-center gap-2 px-4 py-2 cursor-pointer bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors"
+            >
+              <Copy />
+              Copy Password
+            </button>
+             </div>
           </div>
 
           {/* Form Actions */}
