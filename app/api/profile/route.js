@@ -7,7 +7,7 @@ import Tenant from '@/app/models/real-tenant';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 
-export async function GET(req: NextRequest) {
+export async function GET(req) {
   try {
     await connectDB();
 
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     const token = authHeader.split(' ')[1];
 
-    let payload: any;
+    let payload;
     try {
       payload = jwt.verify(token, JWT_SECRET);
     } catch {
