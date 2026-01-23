@@ -1,11 +1,11 @@
 // app/dashboard/page.tsx
 'use client';
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Home, DollarSign, Bell, MessageSquare } from 'lucide-react';
+import { useTenant, type Tenant } from '@/app/hooks/useTenant';
 
-type Tenant = {
+type DashboardTenant = {
   name: string;
   roomNumber: string;
   moveInDate: string;
@@ -17,27 +17,29 @@ type Tenant = {
 };
 
 export default function TenantDashboard() {
-  const [tenant, setTenant] = useState<Tenant | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { tenant, loading, error } = useTenant();
+  const [dashboardTenant, setDashboardTenant] = useState<DashboardTenant | null>(null);
 
+  // Map real tenant data to dashboard format
   useEffect(() => {
-    // Simulate fetching tenant data
-    setTimeout(() => {
-      setTenant({
-        name: 'Sarah Johnson',
-        roomNumber: '101',
-        moveInDate: '2023-06-15',
-        monthlyRent: 12000,
-        nextPaymentDue: '2024-02-15',
-        rentStatus: 'pending',
-        notifications: 3,
-        unreadMessages: 2,
+    if (tenant) {
+      const today = new Date();
+      const nextDue = new Date(today.getFullYear(), today.getMonth() + 1, 0); // End of month
+      
+      setDashboardTenant({
+        name: tenant.name,
+        roomNumber: tenant.roomNumber,
+        moveInDate: tenant.moveInDate,
+        monthlyRent: tenant.rentAmount,
+        nextPaymentDue: nextDue.toLocaleDateString(),
+        rentStatus: 'pending', // Calculate based on lastPayment vs today
+        notifications: 3, // Fetch from API later
+        unreadMessages: 2, // Fetch from API later
       });
-      setLoading(false);
-    }, 500);
-  }, []);
+    }
+  }, [tenant]);
 
-  if (loading || !tenant) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-[#060219] flex items-center justify-center">
         <div className="text-center">
@@ -48,7 +50,18 @@ export default function TenantDashboard() {
     );
   }
 
-  
+  if (error || !tenant || !dashboardTenant) {
+    return (
+      <div className="min-h-screen bg-[#060219] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-400 mb-4">{error || 'Tenant data not found'}</p>
+          <Link href="/auth/login" className="text-blue-400 hover:text-blue-300">
+            Go to Login
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   // Calculate months stayed
   const moveIn = new Date(tenant.moveInDate);
@@ -58,20 +71,18 @@ export default function TenantDashboard() {
 
   return (
     <div className="bg-[#060219] text-white">
-    
-
       <div className="container mx-auto px-4">
         {/* Main Info Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Tenant Info Card */}
           <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-green-600  rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-lg">{tenant.name.charAt(0)}</span>
               </div>
               <div>
                 <h2 className="text-xl font-bold">{tenant.name}</h2>
-                <p className="text-gray-400">Tenant</p>
+                <p className="text-gray-400">Room {tenant.roomNumber}</p>
               </div>
             </div>
 
@@ -90,7 +101,7 @@ export default function TenantDashboard() {
               
               <div className="flex items-center justify-between">
                 <span className="text-gray-400">Monthly Rent</span>
-                <span className="font-medium">KES {tenant.monthlyRent.toLocaleString()}</span>
+                <span className="font-medium">KES {tenant.rentAmount.toLocaleString()}</span>
               </div>
             </div>
           </div>
@@ -108,10 +119,19 @@ export default function TenantDashboard() {
             </div>
 
             <div className="space-y-4">
-              <div className={`flex items-center gap-3 p-4 rounded-lg bg-green-600`}>
-                <span>
-                  Your rent is Due
+              <div className={`flex items-center gap-3 p-4 rounded-lg ${
+                dashboardTenant.rentStatus === 'paid' 
+                  ? 'bg-green-900/50 border border-green-700/30' 
+                  : 'bg-yellow-900/50 border border-yellow-700/30'
+              }`}>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  dashboardTenant.rentStatus === 'paid' 
+                    ? 'bg-green-600 text-white' 
+                    : 'bg-yellow-600 text-white'
+                }`}>
+                  {dashboardTenant.rentStatus.toUpperCase()}
                 </span>
+                <span>Next due: {dashboardTenant.nextPaymentDue}</span>
               </div>
  
               <Link 
@@ -137,7 +157,7 @@ export default function TenantDashboard() {
             </Link>
             
             <Link 
-              href="/tenant/discussions"
+              href="/tenant/maintenance"
               className="bg-gray-900/50 border border-gray-700 hover:border-green-500 rounded-xl p-4 text-center transition-colors"
             >
               <Home className="w-6 h-6 text-green-400 mx-auto mb-2" />
@@ -161,10 +181,6 @@ export default function TenantDashboard() {
             </Link>
           </div>
         </div>
-
-   
-
-      
       </div>
     </div>
   );
