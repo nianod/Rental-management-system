@@ -44,23 +44,40 @@ export default function TenantLayout({ children }: { children: React.ReactNode }
           <div className="flex-1">
             <h3 className="font-semibold text-blue-700 mb-3 p-3">MENU</h3>
             <nav className="space-y-1">
-              {MenuPaths.map((item) => {
-                const isActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setSidebarOpen(false)}
-                    className={`
-                      block p-3 rounded transition-colors duration-200
-                      ${isActive ? "bg-blue-600 text-white" : "hover:bg-gray-800 text-gray-300"}
-                    `}
-                  >
-                    {item.label}
-                    {isActive && <span className="ml-2 text-xs">●</span>}
-                  </Link>
-                );
-              })}
+       <nav className="space-y-1">
+  {MenuPaths.map((item) => {
+    // ✅ PERFECT MATCHING LOGIC
+    let isActive = false;
+    
+    if (item.href === '/tenant') {
+      // Home ONLY matches exact path
+      isActive = pathname === '/tenant';
+    } else {
+      // All other pages match exact OR their subpath
+      isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+    }
+
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        onClick={() => setSidebarOpen(false)}
+        className={`
+          block p-3 rounded-lg transition-all duration-200 group
+          ${isActive 
+            ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg font-semibold' 
+            : 'text-gray-300 hover:bg-gray-800 hover:text-white hover:shadow-md'
+          }`}
+      >
+        <span>{item.label}</span>
+        {isActive && (
+          <span className="ml-2 inline-block w-2 h-2 bg-white rounded-full animate-pulse"></span>
+        )}
+      </Link>
+    );
+  })}
+</nav>
+
             </nav>
           </div>
         </div>

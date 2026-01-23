@@ -1,4 +1,4 @@
-// app/dashboard/page.tsx
+//app/tenant/page.tsx
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
