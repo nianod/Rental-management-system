@@ -24,10 +24,35 @@ It follows modern full-stack best practices using **Next.js App Router**, **API 
 
 ---
 
-## 🧠 Key Features
 
+# DISCLAIMER ⚠️⚠️
 ## Authentication in this system is about access control, not user discovery.
 
+ 
+## HOW IT WORKS 
+### 🔐 Getting Started (Admin → Tenant Flow)
+
+1. **Log in as Admin**
+   - Use the admin credentials provided during setup.
+   - This gives you access to the main dashboard.
+
+2. **Create a Tenant**
+   - From the admin dashboard, create a tenant by assigning:
+     - Room number  
+     - Login credentials
+   - Save the tenant details.
+
+3. **Log in as Tenant**
+   - Log out from the admin account.
+   - Log in using the tenant credentials you just created.
+   - The tenant can now access their dashboard and interact with the system.
+
+> ℹ️ Note: Tenant accounts cannot self-register. All tenant credentials are created and managed by the admin.
+
+
+---
+
+## 🧠 Key Features
 
 ### 💬 Landlord–Tenant Communication
 
@@ -42,6 +67,8 @@ It follows modern full-stack best practices using **Next.js App Router**, **API 
 - Tenant records management
 
 - Property/room association
+
+- Tenant discussion Forum
 
 - Status tracking (active, inactive, vacated)
 
@@ -243,11 +270,8 @@ This project is licensed under the **MIT License**.
 
 ---
 
-> ⭐ If you find this project useful, consider giving it a star!
+ 
 
-
-> 👨‍💻 Developer
-
-**Arnold**
+> 👨‍💻 Developer: **Arnold**
 
 Aspiring Tech Professional | Full‑Stack Developer
