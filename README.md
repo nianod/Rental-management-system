@@ -35,6 +35,10 @@ It follows modern full-stack best practices using **Next.js App Router**, **API 
 1. **Log in as Admin**
    - Use the admin credentials provided during setup.
    - This gives you access to the main dashboard.
+    ________________________
+     ADMIN ID: Arnoldk       
+     PASSCODE: qwertyuiop   
+   __________________________
 
 2. **Create a Tenant**
    - From the admin dashboard, create a tenant by assigning:
