@@ -1,15 +1,8 @@
  import Link from 'next/link'
-import { 
-  Users, 
-  MessageSquare, 
-  PlusCircle, 
-  FileText,
-  Bell,
-  CreditCard
-} from 'lucide-react'
+import { Users, MessageSquare,PlusCircle,FileText, Bell, CreditCard} from 'lucide-react'
 
-export default function QuickActions() {
-  const actions = [
+const QuickActions = () => { 
+const actions = [
     {
       title: 'Manage Tenants',
       description: 'View all tenants',
@@ -78,9 +71,11 @@ export default function QuickActions() {
       
       <div className="mt-6 pt-6 border-t border-gray-700">
         <p className="text-sm text-gray-400 text-center">
-          Last updated: Today, 14:30
+         Titan rental
         </p>
       </div>
     </div>
   )
 }
+
+export default QuickActions

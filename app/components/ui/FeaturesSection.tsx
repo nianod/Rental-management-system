@@ -1,16 +1,6 @@
  import { Shield, MessageSquare, CreditCard, Wrench, Bell, FileText } from 'lucide-react';
 import { features } from '@/app/lib/data';
-
-const iconMap: Record<string, React.ReactNode> = {
-  '💳': <CreditCard className="w-6 h-6" />,
-  '🔧': <Wrench className="w-6 h-6" />,
-  '📱': <Bell className="w-6 h-6" />,
-  '💬': <MessageSquare className="w-6 h-6" />,
-  '📄': <FileText className="w-6 h-6" />,
-  '🔒': <Shield className="w-6 h-6" />,
-};
-
-
+ 
 const FeaturesSection = () => {
   return (
     <section className="py-20  ">
@@ -32,14 +22,9 @@ const FeaturesSection = () => {
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700 rounded-2xl p-8 hover:border-blue-500 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
+              className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700 rounded-2xl p-8 hover:border-blue-500   hover:shadow-xl"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-               {iconMap[feature.icon] && (
-                  <span className="text-2xl">{feature.icon}</span>
-               )}
-                
-              </div>
+        
               
               <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
               <p className="text-gray-400 leading-relaxed">{feature.description}</p>

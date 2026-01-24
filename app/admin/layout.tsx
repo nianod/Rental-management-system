@@ -1,17 +1,16 @@
-// app/admin/layout.tsx
-"use client";
+ "use client";
 import getGreeting from "@/app/utils/greeting";
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Bell, Search } from "lucide-react";
+import { Menu, X, Bell, ThumbsUp } from "lucide-react";
 import menuItems from "./constants/menuitems";
 import { TenantsProvider } from "../context/TenantsContext";
 
 export default function AdminLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode; 
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
@@ -19,8 +18,7 @@ export default function AdminLayout({
   return (
     <TenantsProvider>
       <div className="flex min-h-screen bg-[#060219] text-white">
-        {/* Mobile Menu Button */}
-        <button
+         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-black text-white rounded-lg"
         >
@@ -31,8 +29,7 @@ export default function AdminLayout({
           )}
         </button>
 
-        {/* Sidebar Overlay for Mobile */}
-        {sidebarOpen && (
+         {sidebarOpen && (
           <div
             className="lg:hidden fixed inset-0 bg-black/50 z-40"
             onClick={() => setSidebarOpen(false)}
@@ -49,19 +46,25 @@ export default function AdminLayout({
   `}
         >
           <div className="flex flex-col h-full p-4">
-            {/* Logo */}
+           
             <div className="mb-4 p-3">
               <h1 className="font-bold text-2xl mb-1">Admin Panel</h1>
             </div>
 
-            {/* Menu */}
+           
             <div className="flex-1">
               <h3 className="font-semibold text-blue-700 mb-3 p-3">MENU</h3>
               <nav className="space-y-1">
                 {menuItems.map((item) => {
-                  const isActive =
-                    pathname === item.href ||
-                    pathname?.startsWith(`${item.href}/`);
+                  let isActive = false
+                  if(item.href === '/admin'){
+                    isActive = pathname === "/admin"
+                  } else {
+                    isActive = 
+                      pathname === item.href ||
+                      pathname?.startsWith(`${item.href}/`);
+                  }
+
 
                   return (
                     <Link
@@ -88,9 +91,9 @@ export default function AdminLayout({
           </div>
         </aside>
 
-        {/* Main Content */}
+      
         <main className="flex-1  min-h-screen">
-          {/* Top Bar */}
+          
           <div className="sticky top-0 z-30 bg-[#060219] border-b border-gray-800 px-6 py-4">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
@@ -99,17 +102,17 @@ export default function AdminLayout({
               </div>
 
               <div className="flex items-center gap-4">
-                {/* Search Bar */}
+                
                 <div className="relative flex-1 md:flex-initial">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <ThumbsUp className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
                   <input
                     type="text"
-                    placeholder="Search..."
-                    className="w-full md:w-64 pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+                    readOnly
+                    placeholder="WE ARE SIKA..."
+                    className="w-full md:w-64 pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded text-white placeholder-gray-500 "
                   />
                 </div>
-
-                {/* Notifications */}
+ 
                 <Link
                   href="/admin/messages"
                   title="Messages"
@@ -121,8 +124,7 @@ export default function AdminLayout({
             </div>
           </div>
 
-          {/* Page Content */}
-          <div className="p-6">{children}</div>
+           <div className="p-6">{children}</div>
         </main>
       </div>
     </TenantsProvider>

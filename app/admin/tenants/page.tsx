@@ -1,5 +1,4 @@
-//admin/tenants/page.tsx
-'use client';
+ 'use client';
 import { useEffect, useState } from 'react';
 import { Plus, Search, Mail, Phone, Home, Calendar, Edit, Trash2 } from 'lucide-react';
 import RegisterTenantForm from '@/app/admin/tenants/Register';

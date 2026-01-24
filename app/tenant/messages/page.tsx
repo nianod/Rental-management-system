@@ -13,6 +13,7 @@ type Message = {
   read: boolean;
 };
 
+//dummy bro haha lol
 export default function MessagesPage() {
   const [messages, setMessages] = useState<Message[]>([
     { id: 1, text: 'Hi, I have an issue with my bathroom tap', sender: 'tenant', timestamp: '10:30 AM', read: true },

@@ -169,8 +169,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Show general error if exists */}
-          {errors.general && (
+           {errors.general && (
             <div className="bg-red-900/30 border border-red-700/50 rounded-xl p-4">
               <p className="text-red-200 text-sm">{errors.general}</p>
             </div>
@@ -274,7 +273,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
             </div>
           </div>
 
-          {/* Rental Information */}
+         
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-300">
               Rental Information
@@ -346,7 +345,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
             </div>
           </div>
 
-          {/* Account Credentials */}
+          
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-300">
               Account Credentials
@@ -447,12 +446,12 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
             </div>
           </div>
 
-          {/* Form Actions */}
+          
           <div className="flex items-center justify-end gap-4 pt-6 border-t border-gray-800">
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg font-medium transition-colors"
+              className="px-6 py-3 cursor-pointer bg-gray-800 hover:bg-gray-700 rounded-lg font-medium transition-colors"
             >
               Cancel
             </button>

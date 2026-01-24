@@ -9,7 +9,7 @@ const tenantSchema = new Schema({
   moveInDate: { type: Date, required: true },
   gender: { type: String, required: true },
   lastPayment: { type: Date, required: true },
-  passwordHash: { type: String, required: true },   // ← add this
+  passwordHash: { type: String, required: true },   
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

@@ -23,14 +23,14 @@ export default function SimpleBookPage() {
     e.preventDefault();
     setSubmitting(true);
 
-    // Simple validation
+    //  validation
     if (!formData.name || !formData.email || !formData.phone) {
       alert('Please fill in all required fields');
       setSubmitting(false);
       return;
     }
 
-    // Submit data
+  
     setTimeout(() => {
       console.log('Booking submitted:', {
         roomId,
@@ -40,7 +40,7 @@ export default function SimpleBookPage() {
       setSubmitting(false);
       setSubmitted(true);
       
-      // Reset form
+  
       setFormData({
         name: '',
         email: '',
@@ -87,7 +87,7 @@ export default function SimpleBookPage() {
 
   return (
     <div className="min-h-screen bg-[#060219]">
-      {/* Simple Header */}
+  
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <Link 
@@ -99,8 +99,7 @@ export default function SimpleBookPage() {
         </div>
 
         <div className="max-w-md mx-auto">
-          {/* Simple Title */}
-          <div className="text-center mb-8">
+           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-white mb-2">
               Book Room {roomId || ''}
             </h1>
@@ -109,10 +108,10 @@ export default function SimpleBookPage() {
             </p>
           </div>
 
-          {/* Simple Form */}
+    
           <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Name */}
+         
               <div>
                 <label className="block text-gray-300 text-sm mb-1">
                   Your Name *
@@ -128,7 +127,7 @@ export default function SimpleBookPage() {
                 />
               </div>
 
-              {/* Email */}
+            
               <div>
                 <label className="block text-gray-300 text-sm mb-1">
                   Email Address *
@@ -144,7 +143,7 @@ export default function SimpleBookPage() {
                 />
               </div>
 
-              {/* Phone */}
+          
               <div>
                 <label className="block text-gray-300 text-sm mb-1">
                   Phone Number *
@@ -160,7 +159,7 @@ export default function SimpleBookPage() {
                 />
               </div>
 
-              {/* Message */}
+               
               <div>
                 <label className="block text-gray-300 text-sm mb-1">
                   Tell us about yourself, your preferences, or any special requirements...
@@ -175,7 +174,7 @@ export default function SimpleBookPage() {
                 />
               </div>
 
-              {/* Submit Button */}
+ 
               <button
                 type="submit"
                 disabled={submitting}

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Search, Filter, DollarSign, Calendar, Clock, CheckCircle, XCircle, Edit,RefreshCw } from 'lucide-react';
+import { Search, Calendar, CheckCircle, Edit,RefreshCw } from 'lucide-react';
 
 interface RentPayment {
   _id: string;
@@ -63,23 +63,21 @@ export default function AdminRentTracking() {
 
   return (
     <div className="space-y-6 p-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">Rent Tracking</h1>
           <p className="text-gray-400">Monitor rent payments and tenant status</p>
         </div>
         <button 
           onClick={() => loadRentPayments()}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          className="flex cursor-pointer items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
         >
           <RefreshCw className="w-4 h-4" />
           Refresh
         </button>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div className="p-4 bg-gray-900 rounded-lg">
           <p className="text-gray-400 text-sm mb-1">Total Revenue</p>
           <p className="text-2xl font-bold text-green-400">
@@ -100,8 +98,7 @@ export default function AdminRentTracking() {
         </div>
       </div>
 
-      {/* Search & Filter */}
-      <div className="flex flex-col md:flex-row gap-4">
+       <div className="flex flex-col md:flex-row gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
           <input
@@ -117,7 +114,7 @@ export default function AdminRentTracking() {
             <button
               key={status}
               onClick={() => setFilterStatus(status)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${
+              className={`px-4 cursor-pointer py-2 rounded-lg font-medium transition-all ${
                 filterStatus === status
                   ? 'bg-blue-600 text-white shadow-lg'
                   : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
@@ -129,8 +126,7 @@ export default function AdminRentTracking() {
         </div>
       </div>
 
-      {/* Payments Table */}
-      <div className="bg-gray-900 rounded-xl overflow-hidden">
+       <div className="bg-gray-900 rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-800">
@@ -195,7 +191,9 @@ export default function AdminRentTracking() {
                       )}
                     </td>
                     <td className="p-4">
-                      <button className="p-2 hover:bg-gray-700 rounded-lg transition-colors" title="Edit payment">
+                      <button
+                        onClick={() => alert('Not currently supported')}
+                      className="cursor-pointer p-2 hover:bg-gray-700 rounded-lg transition-colors" title="Edit payment">
                         <Edit className="w-4 h-4 text-blue-400" />
                       </button>
                     </td>
@@ -207,8 +205,7 @@ export default function AdminRentTracking() {
         </div>
       </div>
 
-      {/* Summary */}
-      <div className="text-center p-6 bg-gray-900 rounded-lg">
+       <div className="text-center p-6 bg-gray-900 rounded-lg">
         <p className="text-gray-400">
           Showing {filteredPayments.length} of {payments.length} payments
         </p>
