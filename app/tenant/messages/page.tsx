@@ -97,7 +97,7 @@ export default function MessagesPage() {
                 </div>
                 <div>
                   <h1 className="font-bold">Landlord</h1>
-                  <p className="text-gray-400 text-sm">Online now</p>
+                  
                 </div>
               </div>
             </div>
