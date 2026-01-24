@@ -1,5 +1,4 @@
-// app/api/test-tenants/route.js
-import { NextResponse } from 'next/server';
+ import { NextResponse } from 'next/server';
 import { connectDB } from '@/app/lib/mongoose';
 import User from '@/app/models/User';
 

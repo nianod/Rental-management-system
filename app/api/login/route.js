@@ -1,5 +1,4 @@
-// app/api/login/route.js
-import { NextResponse } from 'next/server';
+ import { NextResponse } from 'next/server';
 import { connectDB } from '@/app/lib/mongoose';
 import User from '@/app/models/User';
 import bcrypt from 'bcryptjs';
@@ -13,10 +12,9 @@ export async function POST(req) {
     const body = await req.json();
    
     const { identifier, password, role } = body;
-    console.log('🔍 LOGIN:', { identifier, role, passwordLength: password?.length });
+    console.log('login', { identifier, role, passwordLength: password?.length });
 
-    // Build correct query for role
-    const query = role === 'tenant'
+     const query = role === 'tenant'
       ? { roomNumber: identifier.trim(), role: 'tenant' }
       : { adminId: identifier.trim(), role: 'admin' };
 
@@ -24,9 +22,9 @@ export async function POST(req) {
 
     const user = await User.findOne(query);
     
-    console.log('👤 USER FOUND:', !!user);
+   
     if (user) {
-      console.log('🔑 USER DATA:', {
+      console.log('user data', {
         roomNumber: user.roomNumber || user.adminId,
         hasPassword: !!user.password,
         passwordLength: user.password?.length,
@@ -35,25 +33,22 @@ export async function POST(req) {
     }
 
     if (!user) {
-      console.log('❌ NO USER');
+      console.log('no user');
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
     if (!user.password) {
-      console.log('❌ NO PASSWORD');
+      console.log('bo passwod');
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log('✅ PASSWORD MATCH:', isMatch ? 'YES' : 'NO');
-
+ 
     if (!isMatch) {
-      console.log('❌ PASSWORD FAIL - Raw input was:', JSON.stringify(password));
-      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
-    // ✅ GENERATE JWT TOKEN
-    const token = jwt.sign(
+     const token = jwt.sign(
       { 
         id: user._id.toString(), 
         role: user.role 
@@ -62,8 +57,7 @@ export async function POST(req) {
       { expiresIn: '7d' }
     );
 
-    console.log('🎉 LOGIN SUCCESS');
-
+ 
     return NextResponse.json({
       token,
       role: user.role,
@@ -76,7 +70,6 @@ export async function POST(req) {
     });
 
   } catch (err) {
-    console.error('💥 LOGIN ERROR:', err);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

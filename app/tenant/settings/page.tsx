@@ -1,5 +1,4 @@
-// app/dashboard/settings/page.tsx
-'use client';
+ 'use client';
 import swal from 'sweetalert2';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -14,15 +13,14 @@ export default function TenantSettings() {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {tenant, loading} = useTenant();
+  const [sendRequest, setSendRequest] = useState(false)
 
-  // Profile Settings
-  const [profile, setProfile] = useState({
+   const [profile, setProfile] = useState({
     name: '',
     email: '',
     phone: '',
     roomNumber: '',
-    emergencyContact: '+254 723 456 789',
-    emergencyName: 'Michael Johnson',
+ 
   });
 
   useEffect(() => {
@@ -32,34 +30,20 @@ export default function TenantSettings() {
         email: tenant.email || "",
         phone: tenant.phone || "",
         roomNumber: tenant.roomNumber || "",
-        emergencyContact: "+254 723 456 789",
-        emergencyName: "Michael Johnson",
-      })
+        })
     }
   }, [tenant, loading])
 
-  // Notification Settings
-  const [notifications, setNotifications] = useState({
+   const [notifications, setNotifications] = useState({
     rentReminders: true,
     maintenanceUpdates: true,
     announcements: true,
     paymentConfirmations: true,
     emailNotifications: true,
-    smsNotifications: false,
-    pushNotifications: true,
+ 
   });
 
-  // Privacy Settings
-  const [privacy, setPrivacy] = useState({
-    showRoomNumber: true,
-    showNameInGroup: true,
-    allowDirectMessages: true,
-    onlineStatus: true,
-    readReceipts: true,
-  });
-
-  // Password Change
-  const [password, setPassword] = useState({
+   const [password, setPassword] = useState({
     current: '',
     new: '',
     confirm: '',
@@ -68,13 +52,12 @@ export default function TenantSettings() {
   const tabs = [
     { id: 'profile', label: 'Profile', icon: <User className="w-4 h-4" /> },
     { id: 'notifications', label: 'Notifications', icon: <Bell className="w-4 h-4" /> },
-    { id: 'privacy', label: 'Privacy', icon: <Shield className="w-4 h-4" /> },
-    { id: 'account', label: 'Account', icon: <Lock className="w-4 h-4" /> },
+     { id: 'account', label: 'Account', icon: <Lock className="w-4 h-4" /> },
   ];
 
   const handleSave = async () => {
     setSaving(true);
-    // Simulate API call
+    //  API call
     setTimeout(() => {
       setSaving(false);
     }, 1000);
@@ -88,9 +71,7 @@ export default function TenantSettings() {
     setNotifications(prev => ({ ...prev, [field]: !prev[field as keyof typeof notifications] }));
   };
 
-  const handleChangePrivacy = (field: string) => {
-    setPrivacy(prev => ({ ...prev, [field]: !prev[field as keyof typeof privacy] }));
-  };
+ 
 
   const router = useRouter();
   const handleLogout = () => {
@@ -115,8 +96,7 @@ export default function TenantSettings() {
 
   return (
     <div className="min-h-screen bg-[#060219] text-white">
-      {/* Header */}
-      <div className="sticky top-0 bg-gradient-to-r from-[#060219] to-[#0a0429] border-b border-gray-800 z-10">
+       <div className="sticky top-0 bg-gradient-to-r from-[#060219] to-[#0a0429] border-b border-gray-800 z-10">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-4">
@@ -156,7 +136,7 @@ export default function TenantSettings() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-4 gap-8">
-            {/* Left Sidebar - Tabs */}
+          
             <div className="lg:col-span-1">
               <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-4">
                 <nav className="space-y-1">
@@ -188,10 +168,8 @@ export default function TenantSettings() {
               </div>
             </div>
 
-            {/* Right Content Area */}
-            <div className="lg:col-span-3">
-              {/* Profile Settings */}
-              {activeTab === 'profile' && (
+             <div className="lg:col-span-3">
+               {activeTab === 'profile' && (
                 <div className="space-y-6">
                   <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-3">
@@ -261,7 +239,7 @@ export default function TenantSettings() {
                 </div>
               )}
 
-              {/* Notification Settings */}
+           
               {activeTab === 'notifications' && (
                 <div className="space-y-6">
                   <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
@@ -281,7 +259,7 @@ export default function TenantSettings() {
                             </div>
                             <button
                               onClick={() => handleChangeNotification('rentReminders')}
-                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                              className={`relative inline-flex cursor-pointer h-6 w-11 items-center rounded-full transition-colors ${
                                 notifications.rentReminders ? 'bg-green-600' : 'bg-gray-700'
                               }`}
                             >
@@ -298,7 +276,7 @@ export default function TenantSettings() {
                             </div>
                             <button
                               onClick={() => handleChangeNotification('paymentConfirmations')}
-                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                              className={`relative inline-flex cursor-pointer h-6 w-11 items-center rounded-full transition-colors ${
                                 notifications.paymentConfirmations ? 'bg-green-600' : 'bg-gray-700'
                               }`}
                             >
@@ -314,63 +292,11 @@ export default function TenantSettings() {
                 </div>
               )}
 
-               {activeTab === 'privacy' && (
+         
+
+               {activeTab === 'account' && (
                 <div className="space-y-6">
-                  <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
-                    <h2 className="text-xl font-bold mb-6 flex items-center gap-3">
-                      <Shield className="w-5 h-5" />
-                      Privacy Settings
-                    </h2>
-
-                    <div className="space-y-6">
-                      <div className="space-y-4">
-                        <h3 className="font-semibold text-white">Profile Visibility</h3>
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between p-4 bg-gray-800/30 rounded-lg">
-                            <div>
-                              <p className="font-medium">Show Room Number in Group</p>
-                              <p className="text-gray-400 text-sm">Other tenants can see your room number</p>
-                            </div>
-                            <button
-                              onClick={() => handleChangePrivacy('showRoomNumber')}
-                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                                privacy.showRoomNumber ? 'bg-green-600' : 'bg-gray-700'
-                              }`}
-                            >
-                              <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                                privacy.showRoomNumber ? 'translate-x-6' : 'translate-x-1'
-                              }`} />
-                            </button>
-                          </div>
-
-                          <div className="flex items-center justify-between p-4 bg-gray-800/30 rounded-lg">
-                            <div>
-                              <p className="font-medium">Show Name in Group Chat</p>
-                              <p className="text-gray-400 text-sm">Your name appears in tenant discussions</p>
-                            </div>
-                            <button
-                              onClick={() => handleChangePrivacy('showNameInGroup')}
-                              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                                privacy.showNameInGroup ? 'bg-green-600' : 'bg-gray-700'
-                              }`}
-                            >
-                              <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                                privacy.showNameInGroup ? 'translate-x-6' : 'translate-x-1'
-                              }`} />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Account Settings */}
-              {activeTab === 'account' && (
-                <div className="space-y-6">
-                  {/* Change Password */}
-                  <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
+                   <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
                     <h2 className="text-xl font-bold mb-6 flex items-center gap-3">
                       <Lock className="w-5 h-5" />
                       Change Password
@@ -451,11 +377,29 @@ export default function TenantSettings() {
                         </div>
                       </div>
 
-                      <button className="w-full cursor-pointer py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium rounded-lg transition-all duration-300">
+                      <button
+                      onClick={() => setSendRequest(true)}
+                      className="w-full cursor-pointer py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium rounded-lg transition-all duration-300">
                         Update Password
                       </button>
                     </div>
                   </div>
+                 
+                  {sendRequest && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+                    <div className='bg-gray-800 h-fit flex flex-col p-3 rounded'>
+                      <p className='mb-4 flex text-center justify-center'>Password reset Request send to admin. You'll be notified <br />once the process is completed. 
+                        In the meantime, <br />use Your previous password
+                      </p>
+                      <button 
+                      onClick={() => setSendRequest(false)}
+                      className='bg-red-700 rounded w-fit m-auto p-3 px-3 py-2 cursor-pointer hover:bg-red-600 transition'>
+                        OK
+                      </button>
+                    </div>
+                    </div>
+                  )}
+                   
 
                   
                   <div className="bg-red-900/10 border border-red-700/30 rounded-xl p-6">

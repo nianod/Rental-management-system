@@ -1,5 +1,4 @@
-// app/api/me/tenant/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+ import {NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import { connectDB } from '@/app/lib/mongoose';
 import User from '@/app/models/User';
@@ -29,8 +28,7 @@ export async function GET(req) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    // Find user and tenant
-    const user = await User.findById(payload.id);
+     const user = await User.findById(payload.id);
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }

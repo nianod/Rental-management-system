@@ -1,5 +1,4 @@
-// app/auth/login/page.tsx
-'use client';
+ 'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -28,8 +27,7 @@ const LoginPage = () => {
     setLoading(true);
     setError('');
 
-    // Client-side validation
-    if (!formData.roomNumber || !formData.password) {
+     if (!formData.roomNumber || !formData.password) {
       setError('Please fill in all fields');
       setLoading(false);
       return;
@@ -41,16 +39,15 @@ const LoginPage = () => {
         password: formData.password.trim(),
         role: loginType,
       };
+ 
 
-      console.log('Sending login request:', { ...payload, password: '***' }); // Debug log
-
-// MUST BE:
-const res = await fetch('/api/login', {  // ✅ CORRECT
+ 
+const res = await fetch('/api/login', {  
   method: 'POST',
   body: JSON.stringify({
     identifier: formData.roomNumber.trim(),
     password: formData.password.trim(),
-    role: loginType  // 'tenant'
+    role: loginType   
   })
 });
 
@@ -58,12 +55,12 @@ const res = await fetch('/api/login', {  // ✅ CORRECT
       const contentType = res.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
         const text = await res.text();
-        console.error('Non-JSON response:', text);
+     // console.error('Non-JSON response:', text);
         throw new Error('Server returned an error. Please check server logs.');
       }
 
       const data = await res.json();
-      console.log('Login response:', data); // Debug log
+      
 
       if (!res.ok) {
         setError(data.error || 'Login failed');
@@ -76,8 +73,7 @@ const res = await fetch('/api/login', {  // ✅ CORRECT
         localStorage.setItem('userRole', data.role);
       }
 
-      console.log("role", data.role);
-
+ 
       if (loginType === 'admin') {
         router.push('/admin');
       } else {
@@ -85,8 +81,7 @@ const res = await fetch('/api/login', {  // ✅ CORRECT
       }
 
     } catch (err: unknown) {
-      console.error('Login error:', err);
-      if (err instanceof Error) {
+       if (err instanceof Error) {
         setError(err.message);
       } else {
         setError('Something went wrong. Please try again.');
@@ -101,8 +96,7 @@ const res = await fetch('/api/login', {  // ✅ CORRECT
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    // Clear error when user starts typing
-    if (error) setError('');
+     if (error) setError('');
   };
 
   return (
@@ -299,7 +293,7 @@ const res = await fetch('/api/login', {  // ✅ CORRECT
                   <button
                     type="submit"
                     disabled={loading}
-                    className={`w-full cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl text-lg transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/25 flex items-center justify-center gap-3 ${
+                    className={`w-full cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-xl text-lg transition-all duration-300   flex items-center justify-center gap-3 ${
                       loading ? 'opacity-70 cursor-not-allowed' : ''
                     }`}
                   >

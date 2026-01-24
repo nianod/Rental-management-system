@@ -1,4 +1,3 @@
-// app/book/page.tsx
 
 import { Suspense } from 'react';
 import BookSearch from './BookSearch';

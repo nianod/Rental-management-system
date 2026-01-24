@@ -28,8 +28,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(room, { status: 201 });
   } catch (err) {
-    console.error('CREATE ROOM ERROR:', err);
-    return NextResponse.json(
+     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
     );
@@ -42,8 +41,7 @@ export async function GET() {
     const rooms = await Room.find().sort({ createdAt: -1 });
     return NextResponse.json(rooms);
   } catch (err) {
-    console.error('LIST ROOMS ERROR:', err);
-    return NextResponse.json(
+     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
     );

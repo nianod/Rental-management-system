@@ -1,5 +1,4 @@
-//app/tenant/page.tsx
-'use client';
+ 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Home, DollarSign, Bell, MessageSquare } from 'lucide-react';
@@ -20,7 +19,7 @@ export default function TenantDashboard() {
   const { tenant, loading, error } = useTenant();
   const [dashboardTenant, setDashboardTenant] = useState<DashboardTenant | null>(null);
 
-  // Map real tenant data to dashboard format
+  
   useEffect(() => {
     if (tenant) {
       const today = new Date();
@@ -32,9 +31,9 @@ export default function TenantDashboard() {
         moveInDate: tenant.moveInDate,
         monthlyRent: tenant.rentAmount,
         nextPaymentDue: nextDue.toLocaleDateString(),
-        rentStatus: 'pending', // Calculate based on lastPayment vs today
-        notifications: 3, // Fetch from API later
-        unreadMessages: 2, // Fetch from API later
+        rentStatus: 'pending',  
+        notifications: 3,  
+        unreadMessages: 2,  
       });
     }
   }, [tenant]);
@@ -63,7 +62,7 @@ export default function TenantDashboard() {
     );
   }
 
-  // Calculate months stayed
+  //   months stayed
   const moveIn = new Date(tenant.moveInDate);
   const today = new Date();
   const monthsStayed = (today.getFullYear() - moveIn.getFullYear()) * 12 + 
@@ -72,10 +71,8 @@ export default function TenantDashboard() {
   return (
     <div className="bg-[#060219] text-white">
       <div className="container mx-auto px-4">
-        {/* Main Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* Tenant Info Card */}
-          <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+           <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-lg">{tenant.name.charAt(0)}</span>
@@ -106,8 +103,7 @@ export default function TenantDashboard() {
             </div>
           </div>
 
-          {/* Rent Status Card */}
-          <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
+           <div className="bg-gray-900/50 border border-gray-700 rounded-xl p-6">
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2 bg-blue-900/30 rounded-lg">
                 <DollarSign className="w-6 h-6 text-blue-400" />
@@ -144,8 +140,7 @@ export default function TenantDashboard() {
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="mb-8">
+         <div className="mb-8">
           <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Link 
