@@ -1,8 +1,7 @@
 import { ServerResponse } from "http";
 import { NextRequest, NextResponse } from "next/server";
 import { Server } from "socket.io"
-import {createAdapter} from "socket.io/redis-adapter"
-import { createClient} from "redis"
+ 
 
 let socket: Server | null = null
 
@@ -30,15 +29,16 @@ export async function GET(req: NextRequest) {
     });
 
     socketio.on('send-text', ({roomNumber, message, sender}: {roomNumber: string, message:string, sender: string}) => {
-        socketio.to(roomNumber).emit('receive message',
+        socketio.to(roomNumber).emit('receive message',{
             message,
             sender,
             timestamp: new Date().toISOString,
             socketId: socketio.id
-        )
+         })
     })
     })
 
+    return new Response('Socked.IO server initialized', {status: 200})
 
 }
 
