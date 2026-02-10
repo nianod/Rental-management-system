@@ -74,7 +74,7 @@ export default function ChatWindow({ roomNumber, onClose }: ChatWindowProps) {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
+     
         <form onSubmit={handleSend} className="p-6 border-t border-gray-700">
           <div className="flex gap-3">
             <div className="relative flex-1">
@@ -91,7 +91,7 @@ export default function ChatWindow({ roomNumber, onClose }: ChatWindowProps) {
             <button
               type="submit"
               disabled={!message.trim()}
-              className="p-3 cc bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl transition-all duration-200 flex items-center justify-center"
+              className="p-3 cursor-pointer bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-2xl transition-all duration-200 flex items-center justify-center"
             >
               <Send className="w-5 h-5" />
             </button>

@@ -1,7 +1,7 @@
  'use client';
 
 import { useState } from 'react';
-import { Quote, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { testimonials } from '@/app/lib/data';
 
 const TestimonialCard = ({ 
@@ -19,11 +19,11 @@ const TestimonialCard = ({
     <div className="  border border-gray-700 rounded-2xl p-8">
     
       
-      <Quote className="w-8 h-8 text-blue-400 mb-6" />
+       
       <p className="text-gray-300 text-lg italic mb-8 leading-relaxed">{content}</p>
       
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-900 rounded-full flex items-center justify-center">
+        <div className="w-12 h-12 bg-blue-600  rounded-full flex items-center justify-center">
           <span className="text-white font-bold text-xl">{name.charAt(0)}</span>
         </div>
         <div>
@@ -61,7 +61,7 @@ const TestimonialsSection = () => {
           </p>
         </div>
 
-         <div className="flex justify-end gap-4 mb-8">
+         <div className="flex justify-center gap-4 mb-8">
           <button
             onClick={prevSlide}
             className="cursor-pointer w-12 h-12 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-full flex items-center justify-center transition-colors"

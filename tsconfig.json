@@ -42,7 +42,7 @@
     "app/api/tests/test-tenant/route.js",
     "app/api/real-tenant/route.js",
     "app/api/profile/route.js"
-  ],
+, "app/components/3d.js"  ],
   "exclude": [
     "node_modules"
   ]
