@@ -1,3 +1,4 @@
+//this code is run once to create admin in the database
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -10,7 +11,7 @@ const MONGO_URL = process.env.MONGO_URL!;
 const ADMIN_ID = process.env.ADMIN_ID!;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD!;
 
-async function seedAdmin() {
+async function seedAdmin() {   
   await mongoose.connect(MONGO_URL);
 
   const existing = await User.findOne({ role: 'admin' });
@@ -32,3 +33,4 @@ async function seedAdmin() {
 }
 
 seedAdmin();
+
