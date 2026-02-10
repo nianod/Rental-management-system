@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Lock, User, Eye, EyeOff, Home, Shield, ArrowRight, WalletCards, FileText, MessageCircle, File, Newspaper } from 'lucide-react';
+import { Lock, User, Eye, EyeOff, Home, Shield, ArrowRight } from 'lucide-react';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -55,7 +55,7 @@ const res = await fetch('/api/login', {
       const contentType = res.headers.get('content-type');
       if (!contentType || !contentType.includes('application/json')) {
         const text = await res.text();
-     // console.error('Non-JSON response:', text);
+      
         throw new Error('Server returned an error. Please check server logs.');
       }
 
@@ -167,19 +167,17 @@ const res = await fetch('/api/login', {
                 </h3>
                 
                 {[
-                  { icon: <WalletCards />, title: 'Pay Rent', desc: 'Secure digital payments with receipts' },
-                  { icon: <FileText/>, title: 'Report Issues', desc: 'Maintenance requests with photo uploads' },
-                  { icon: <MessageCircle/>, title: 'Message Landlord', desc: 'Direct, secure communication' },
-                  { icon: <Newspaper/>, title: 'View Updates', desc: 'Building announcements & news' },
-                  { icon: <File/>, title: 'Access Documents', desc: 'Lease agreements & receipts' },
+                  {  title: 'Pay Rent' },
+                  {  title: 'Report Issues' },
+                  {   title: 'Message Landlord' },
+                  {   title: 'View Updates'},
+                  { title: 'Access Documents' },
                 ].map((feature, index) => (
                   <div key={index} className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-black text-[#313a9e] border border-blue-500/30 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-xl">{feature.icon}</span>
-                    </div>
+                  
                     <div>
                       <h4 className="text-white font-medium">{feature.title}</h4>
-                      <p className="text-gray-400 text-sm">{feature.desc}</p>
+                       
                     </div>
                   </div>
                 ))}

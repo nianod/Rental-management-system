@@ -8,14 +8,17 @@ import CTASection from './components/ui/CTAsection';
 export default function HomePage() {
 
   return (
+    <div className='min-h-screen'>
 
-    <main className="min-h-screen bg-gray-800">
-      <HeroSection />
+<HeroSection />
+    <main className="bg-gray-800">
+      
       <AvailableRooms />
       <FeaturesSection />
       <TestimonialsSection />
       <CTASection />
     </main>
+        </div>
 
   );
 }

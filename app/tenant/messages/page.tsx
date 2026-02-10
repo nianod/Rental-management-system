@@ -27,9 +27,9 @@ export default function MessagesPage() {
     return (
       <div className="min-h-screen bg-[#060219] flex items-center justify-center p-8">
         <div className="text-center">
-          <MessageSquare className="w-20 h-20 text-gray-600 mx-auto mb-4" />
+     
           <h2 className="text-2xl font-bold text-gray-300 mb-2">Loading chat...</h2>
-          <p className="text-gray-500">Please wait while we load your profile</p>
+          
         </div>
       </div>
     );

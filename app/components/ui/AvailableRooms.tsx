@@ -28,10 +28,7 @@ const RoomCard = ({ room }: { room: Room }) => {
        <div className="p-6 border-b border-gray-700">
         <div className="flex justify-between items-start mb-4">
           <div>
-            <span className="inline-flex items-center gap-2 bg-green-900/50 text-green-300 text-sm font-medium px-3 py-1 rounded-full">
-              <Check className="w-3 h-3" />
-              Available
-            </span>
+ 
             <h3 className="text-2xl font-bold text-white mt-2">Room {room.roomNumber}</h3>
             <p className="text-gray-400">{room.title}</p>
           </div>
@@ -45,16 +42,7 @@ const RoomCard = ({ room }: { room: Room }) => {
 
     
       <div className="p-6">
-        <div className="flex items-center gap-6 mb-6">
-          <div className="flex items-center gap-2">
-            <Bed className="w-5 h-5 text-blue-400" />
-            <span className="text-gray-300">Studio</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Bath className="w-5 h-5 text-blue-400" />
-            <span className="text-gray-300">Private</span>
-          </div>
-        </div>
+    
  
         <div className="mb-6">
           <h4 className="text-gray-400 text-sm font-medium mb-3">INCLUDED FEATURES</h4>
