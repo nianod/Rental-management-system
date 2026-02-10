@@ -1,4 +1,4 @@
-//app/admin/tenants/Register.tsx
+ 
 "use client";
 
 import { useState } from "react";
@@ -73,7 +73,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
     }
 
     try {
-      // Send complete data including password
+    
       const response = await axios.post("/api/real-tenant", {
         name: formData.name,
         email: formData.email,
@@ -82,12 +82,12 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
         rentAmount: Number(formData.rentAmount),
         moveInDate: formData.moveInDate,
         gender: formData.gender,
-        password: formData.password, // Include password here
+        password: formData.password, 
       });
 
       console.log("Tenant created:", response.data);
 
-      // Call parent onSubmit callback
+       
       onSubmit({
         name: formData.name,
         email: formData.email,
@@ -99,7 +99,7 @@ const RegisterTenantForm = ({ onClose, onSubmit }: RegisterTenantFormProps) => {
         lastPayment: new Date().toISOString().split("T")[0],
       });
 
-      // Reset form
+       
       setFormData({
         name: "",
         email: "",
