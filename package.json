@@ -10,7 +10,6 @@
     "seed": "tsx ./script/seed.ts"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.35.6",
     "@prisma/client": "5.16.1",
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
