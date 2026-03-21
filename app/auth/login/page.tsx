@@ -39,24 +39,21 @@ const LoginPage = () => {
         password: formData.password.trim(),
         role: loginType,
       };
- 
 
- 
-const res = await fetch('/api/login', {  
-  method: 'POST',
-  body: JSON.stringify({
-    identifier: formData.roomNumber.trim(),
-    password: formData.password.trim(),
-    role: loginType   
-  })
-});
+      const res = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({
+          identifier: formData.roomNumber.trim(),
+          password: formData.password.trim(),
+          role: loginType,
+        }),
+      });
 
-
-      const contentType = res.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
+      const contentType = res.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
         const text = await res.text();
-      
-        throw new Error('Server returned an error. Please check server logs.');
+
+        throw new Error("Server returned an error. Please check server logs.");
       }
 
       const data = await res.json();

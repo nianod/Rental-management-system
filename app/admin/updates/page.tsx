@@ -27,6 +27,11 @@ const Page = () => {
     try {
       const response = await axios.post("/api/updates", form);
       setRes(response.data.message || "Update sent successfully!");
+
+      setTimeout(() => {
+        setRes(null)
+      }, 2000)
+      
       setError(null);
       
        setForm({ update: "", description: "" });
@@ -45,7 +50,7 @@ const Page = () => {
   return (
     <div className="min-h-screen bg-[#060219] text-white p-8">
       <h1 className="text-3xl font-bold mb-6">Send Announcements</h1>
-
+      <div className="flex gap-12">
       <form
         onSubmit={handleSubmit}
         className="max-w-lg space-y-4 bg-gray-900 p-6 rounded-xl border border-gray-700"
@@ -90,6 +95,10 @@ const Page = () => {
           </p>
         )}
       </form>
+      <div>
+        <h2>Previously send updates</h2>
+      </div>
+      </div>
     </div>
   );
 };

@@ -51,7 +51,7 @@ export default function DiscussionsPage() {
     setMessages([...messages, newMsg]);
     setNewMessage("");
 
-    //d rep
+ 
      setTimeout(() => {
       if (tenants.length === 0) return;
       
