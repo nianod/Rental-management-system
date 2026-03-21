@@ -14,11 +14,10 @@ export async function POST(req) {
     const { identifier, password, role } = body;
     console.log('login', { identifier, role, passwordLength: password?.length });
 
-     const query = role === 'tenant'
-      ? { roomNumber: identifier.trim(), role: 'tenant' }
+     const query = role === 'tenant' ? { roomNumber: identifier.trim(), role: 'tenant' }
       : { adminId: identifier.trim(), role: 'admin' };
 
-    console.log('🔍 Query:', query);
+    console.log('Query:', query);
 
     const user = await User.findOne(query);
     
@@ -73,3 +72,5 @@ export async function POST(req) {
      return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }
+
+
