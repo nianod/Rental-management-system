@@ -1,7 +1,8 @@
 "use client";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import type { Update } from "@/app/types/data";
 
 const Page = () => {
   const [form, setForm] = useState({
@@ -12,6 +13,7 @@ const Page = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [res, setRes] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [announcement, setAnnouncement] = useState<Update[]>([])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -31,7 +33,7 @@ const Page = () => {
       setTimeout(() => {
         setRes(null)
       }, 2000)
-      
+
       setError(null);
       
        setForm({ update: "", description: "" });
@@ -47,13 +49,33 @@ const Page = () => {
     }
   };
 
+  const fetchUpdates = async () => {
+    try{
+      const fetches = await fetch('/api/updates')
+
+      if(!fetches.ok) {
+        throw new Error('Failed to fetch announcements')
+      }
+
+      const data: Update[] = await fetches.json()
+      setAnnouncement(data)
+    } catch(error) {
+      console.error("Error fetching updates", error);
+      setError("Could not load announcements");
+    }
+  }
+
+  useEffect(() => {
+    fetchUpdates()
+  }, [])
+
   return (
     <div className="min-h-screen bg-[#060219] text-white p-8">
       <h1 className="text-3xl font-bold mb-6">Send Announcements</h1>
-      <div className="flex gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
       <form
         onSubmit={handleSubmit}
-        className="max-w-lg space-y-4 bg-gray-900 p-6 rounded-xl border border-gray-700"
+        className="max-w-lg space-y-4 bg-gray-900 p-6 rounded-xl border h-fit border-gray-700"
       >
         <input
           name="update"
@@ -96,10 +118,46 @@ const Page = () => {
         )}
       </form>
       <div>
-        <h2>Previously send updates</h2>
+        <h2 className="text-xl font-semibold text-center pb-3">Previously send updates</h2>
+         
+          {announcement.map((item) => (
+          <div
+            key={item._id}
+            className="bg-gray-900 rounded-lg p-2 hover:bg-gray-800 transition-colors duration-200 border border-gray-800"
+          >
+            <div className="flex items-start gap-3">
+             
+              <div className="  min-w-0">
+                <h4 className="font-medium text-white truncate">
+                  {item.update}
+                </h4>
+                {item.description && (
+                  <p className="text-gray-300 text-sm mt-2 leading-relaxed">
+                    {item.description}
+                  </p>
+                )}
+                <div className="mt-3   border-t border-gray-800">
+                  <span className="text-xs text-gray-400">
+                    {new Date(item.createdAt).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                    {", "}
+                    {new Date(item.createdAt).toLocaleTimeString("en-US", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+        </div>
       </div>
       </div>
-    </div>
+    
   );
 };
 
