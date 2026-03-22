@@ -28,7 +28,7 @@ export default function TenantsPage() {
         const res = await fetch('/api/tenant', { cache: 'no-store' });
         if (!res.ok) {
           const text = await res.text();
-          console.error('TENANTS LOAD ERROR', res.status, text);
+          console.error('TENANTS LORD ERROR', res.status, text);
           return;
         }
         const data: Tenant[] = await res.json();
@@ -265,3 +265,4 @@ export default function TenantsPage() {
   );
 }
  
+

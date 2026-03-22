@@ -62,8 +62,7 @@ export default function TenantDashboard() {
     );
   }
 
-  //   months stayed
-  const moveIn = new Date(tenant.moveInDate);
+   const moveIn = new Date(tenant.moveInDate);
   const today = new Date();
   const monthsStayed = (today.getFullYear() - moveIn.getFullYear()) * 12 + 
                       (today.getMonth() - moveIn.getMonth());
@@ -180,3 +179,5 @@ export default function TenantDashboard() {
     </div>
   );
 }
+
+

@@ -1,8 +1,8 @@
- import { NextResponse } from 'next/server';
-import { connectDB } from '@/app/lib/mongoose';
-import User from '@/app/models/User';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+ import { NextResponse } from 'next/server'
+ import { connectDB } from '@/app/lib/mongoose'
+import User from '@/app/models/User'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 
@@ -53,7 +53,7 @@ export async function POST(req) {
         role: user.role 
       },
       JWT_SECRET,
-      { expiresIn: '7d' }
+      { expiresIn: '7h' }
     );
 
  

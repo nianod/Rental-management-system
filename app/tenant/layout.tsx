@@ -18,7 +18,7 @@ export default function TenantLayout({
 
   return (
     <div className="flex min-h-screen bg-[#060219] text-white">
-      {/* Mobile menu button */}
+     
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
         className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-black text-white rounded-lg"
